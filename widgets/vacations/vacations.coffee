@@ -1,3 +1,3 @@
 class Dashing.Vacations extends Dashing.Widget
-  ready: ->
-    null
+  onData: (data) ->
+    console.log(data)

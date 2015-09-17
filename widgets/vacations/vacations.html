@@ -3,6 +3,7 @@
 <h1>Heute</h1>
 <ul class="list-nostyle">
   <li data-foreach-item="today">
+    <i class="fa" data-addclass-icon-glass="item.category | equals 'urlaub'" data-addclass-icon-laptop="item.category | equals 'dienstreise'"></i>
     <span class="label" data-bind="item.label"></span>
   </li>
 </ul>
@@ -10,16 +11,17 @@
 <h1>Morgen</h1>
 <ul class="list-nostyle">
   <li data-foreach-item="tomorrow">
-    <span class="label" data-bind="item.label"></span>
+    <i class="fa" data-addclass-icon-glass="item.category | equals 'urlaub'" data-addclass-icon-laptop="item.category | equals 'dienstreise'"></i>
+    </i><span class="label" data-bind="item.label"></span>
   </li>
 </ul>
 
 <h1>N&auml;chste Woche</h1>
 <ul class="list-nostyle">
   <li data-foreach-item="next_week">
+    <i class="fa" data-addclass-icon-glass="item.category | equals 'urlaub'" data-addclass-icon-laptop="item.category | equals 'dienstreise'"></i>
     <span class="label" data-bind="item.label"></span>
   </li>
 </ul>
 
-<p class="more-info" data-bind="moreinfo"></p>
 <p class="updated-at" data-bind="updatedAtMessage"></p>

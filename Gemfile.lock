@@ -4,6 +4,7 @@ GEM
     addressable (2.3.8)
     backports (3.6.6)
     buftok (0.2.0)
+    coderay (1.1.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -38,12 +39,21 @@ GEM
     http-form_data (1.0.1)
     http_parser.rb (0.6.0)
     icalendar (2.3.0)
+    icalendar-recurrence (1.1.0)
+      icalendar (~> 2.0)
+      ice_cube (~> 0.13.0)
+    ice_cube (0.13.0)
     json (1.8.3)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
+    method_source (0.8.2)
     multi_json (1.11.2)
     multipart-post (2.0.0)
     naught (1.1.0)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     rack (1.5.5)
     rack-protection (1.5.3)
       rack
@@ -64,6 +74,7 @@ GEM
       rack-test
       sinatra (~> 1.4.0)
       tilt (>= 1.3, < 3)
+    slop (3.6.0)
     sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -99,4 +110,6 @@ PLATFORMS
 DEPENDENCIES
   dashing
   icalendar
+  icalendar-recurrence
+  pry
   twitter (>= 5.9.0)

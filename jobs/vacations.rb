@@ -1,17 +1,33 @@
 require 'icalendar'
+require 'icalendar/recurrence'
+
 require 'net/http'
 
 user = ENV['CHRONOS_USER']
 password = ENV['CHRONOS_PASSWORD']
 calendar = 'https://chronos.informatik.uni-wuerzburg.de/vacation/home'
 
+def icon_for_event(vacation_event)
+  vacation_event.categories.first.downcase
+end
+
+def vacation_includes_date?(vacation_event, date)
+  regular_event_occurs = (vacation_event.dtstart.to_date..vacation_event.dtend.to_date).include?(date)
+  repeated_event_occurs = !vacation_event.occurrences_between(date, date + 1).empty?
+  regular_event_occurs || repeated_event_occurs
+end
+
 SCHEDULER.every '1h', first_in: 0 do
   uri = URI(calendar)
   req = Net::HTTP::Get.new(calendar)
   req.basic_auth user, password
 
-  response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https',
-  :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
+  params = {
+    use_ssl: uri.scheme == 'https',
+    verify_mode: OpenSSL::SSL::VERIFY_NONE
+  }
+
+  response = Net::HTTP.start(uri.hostname, uri.port, params) do |http|
     http.request(req)
   end
 
@@ -28,14 +44,10 @@ SCHEDULER.every '1h', first_in: 0 do
   vacations_next_week = []
 
   vacations.events.each do |event|
-    vacation_date = event.dtstart.to_date
-    if vacation_date == { label: today }
-      vacations_today << event.summary
-    elsif vacation_date == tomorrow
-      vacations_tomorrow << { label: event.summary }
-    elsif next_week.include? vacation_date
-      vacations_next_week << { label: event.summary }
-    end
+    p event.categories.first.downcase
+    vacations_today << { label: event.summary, category: icon_for_event(event)} if vacation_includes_date? event, today
+    vacations_tomorrow << { label: event.summary, category: icon_for_event(event) } if vacation_includes_date? event, tomorrow
+    vacations_next_week << { label: event.summary, category: icon_for_event(event) } if next_week.any? { |date| vacation_includes_date? event, date }
   end
 
   vacation_information = {
