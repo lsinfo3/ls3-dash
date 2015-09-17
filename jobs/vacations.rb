@@ -7,10 +7,10 @@ calendar = 'https://chronos.informatik.uni-wuerzburg.de/vacation/home'
 
 SCHEDULER.every '1h', first_in: 0 do
   uri = URI(calendar)
-  req = Net::HTTP::Get.new(uri)
+  req = Net::HTTP::Get.new(calendar)
   req.basic_auth user, password
 
-  response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https', 
+  response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https',
   :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
     http.request(req)
   end
