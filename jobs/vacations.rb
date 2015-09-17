@@ -10,7 +10,8 @@ SCHEDULER.every '1h', first_in: 0 do
   req = Net::HTTP::Get.new(uri)
   req.basic_auth user, password
 
-  response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+  response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https', 
+  :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
     http.request(req)
   end
 
