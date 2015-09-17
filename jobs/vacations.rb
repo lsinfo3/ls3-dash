@@ -44,16 +44,15 @@ SCHEDULER.every '1h', first_in: 0 do
   vacations_next_week = []
 
   vacations.events.each do |event|
-    p event.categories.first.downcase
-    vacations_today << { label: event.summary, category: icon_for_event(event)} if vacation_includes_date? event, today
-    vacations_tomorrow << { label: event.summary, category: icon_for_event(event) } if vacation_includes_date? event, tomorrow
-    vacations_next_week << { label: event.summary, category: icon_for_event(event) } if next_week.any? { |date| vacation_includes_date? event, date }
+    vacations_today << { label: event.summary.to_s, category: icon_for_event(event)} if vacation_includes_date? event, today
+    vacations_tomorrow << { label: event.summary.to_s, category: icon_for_event(event) } if vacation_includes_date? event, tomorrow
+    vacations_next_week << { label: event.summary.to_s, category: icon_for_event(event) } if next_week.any? { |date| vacation_includes_date? event, date }
   end
 
   vacation_information = {
-    today: vacations_today,
-    tomorrow: vacations_tomorrow,
-    next_week: vacations_next_week
+    today: [] | vacations_today.sort_by { |e| e[:label] }.uniq,
+    tomorrow: [] | vacations_tomorrow.sort_by { |e| e[:label] }.uniq,
+    next_week: [] | vacations_next_week.sort_by { |e| e[:label] }.uniq
   }
 
   send_event 'vacations', vacation_information
