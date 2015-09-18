@@ -6,3 +6,8 @@ gem 'dashing'
 gem 'twitter', '>= 5.9.0'
 gem 'icalendar'
 gem 'icalendar-recurrence'
+gem 'mechanize'
+gem 'yomu'
+gem 'nokogiri'
+
+gem 'pry'
