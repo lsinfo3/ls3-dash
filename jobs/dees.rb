@@ -25,7 +25,7 @@ SCHEDULER.every '10m', first_in: 0 do
 
   current_line = 0
 
-  menu_plan.each_line.drop_while { |line| not /Menüplan/ =~ line }.drop(2).each do |line|
+  menu_plan.each_line.drop_while { |line| not /plan/ =~ line }.drop(2).each do |line|
     break if /Änderungen vorbehalten/ =~ line
 
     line.strip!
