@@ -1,34 +1,37 @@
 // ----------------------------------------------------------------------------
 // Sass declarations
 // ----------------------------------------------------------------------------
-$background-color:  #12b0c5;
+$background-color:  #4b4b4b;
+$title-color:       rgba(255, 255, 255, 0.7);
+$moreinfo-color:    rgba(255, 255, 255, 0.3);
 
-$title-color:       rgba(255, 255, 255, 1);
-$text-color:    rgba(255, 255, 255, 0.7);
-$moreinfo-color:    rgba(255, 255, 255, 0.7);
 
 // ----------------------------------------------------------------------------
-// Widget-tumblr styles
+// Widget-image styles
 // ----------------------------------------------------------------------------
-.widget-tumblr {
-
-  background-color: $background-color;
+div.widget-big-image {
+    padding: 0;
+    background-color: $background-color;
 
   .title {
     color: $title-color;
   }
 
-  .text {
-    color: $text-color;
-    font-style: italic;
-  }
-
   .more-info {
     color: $moreinfo-color;
   }
-  
+
   .updated-at {
     color: rgba(255, 255, 255, 0.7);
   }
+
+  &.large h3 {
+    font-size: 65px;
+  }
+   
+video {
+        width: 100%
+    }
+
 
 }

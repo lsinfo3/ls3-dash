@@ -13,14 +13,21 @@ SCHEDULER.every '10m', :first_in => 0 do |job|
         # Retrieve total number of posts
         data = JSON.parse(response.body)
         nbQuotes = data["response"]["blog"]["posts"].to_i
-        randomNum = Random.rand(1..nbQuotes)
-
+	if (Random.rand(0..1) <= 0.3)
+		randomNum = 0
+	else
+	        randomNum = Random.rand(0..(nbQuotes-1))
+	end
+	p randomNum
+	
         # Retrieve one random post
         http = Net::HTTP.new("api.tumblr.com")
-        response = http.request(Net::HTTP::Get.new("/v2/blog/#{tumblrUri}/posts/quote?api_key=#{tumblrToken}&offset=#{randomNum}&limit=1"))
+        response = http.request(Net::HTTP::Get.new("/v2/blog/#{tumblrUri}/posts?api_key=#{tumblrToken}&offset=#{randomNum}&limit=1"))
         if Net::HTTPSuccess
             data = JSON.parse(response.body)
-            send_event('quote', { title: data["response"]["posts"][0]["photo"], photo: data["response"]["posts"][0]["source"], moreinfo: tumblrUri})
+	    data["response"]["posts"][0]["caption"].slice!("<p>")
+	    data["response"]["posts"][0]["caption"].slice!("</p>")
+	    send_event('tumblr', { text: data["response"]["posts"][0]["caption"], image: data["response"]["posts"][0]["photos"][0]["alt_sizes"][3]["url"], moreinfo: tumblrUri})
         end
     end
 end
