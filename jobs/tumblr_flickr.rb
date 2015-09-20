@@ -7,7 +7,7 @@ require 'json'
 
 tumblrToken = "0JqbvujVVKwRbyO9F2snB7JqVXk8Yzt1VT0vfdw6mC2pbC0Znz" # your Tumblr token/API Key (http://www.tumblr.com/docs/en/api/v2#auth)
 tumblrUri = "ls3admin.tumblr.com" # the URL of the blog on Tumblr, ex: inspire.niptech.com
-flickrID = "101571970@N05"
+flickrID = "90962754@N00"
 
 SCHEDULER.every '10m', :first_in => 0 do |job|
     http = Net::HTTP.new("api.tumblr.com")
@@ -19,8 +19,8 @@ SCHEDULER.every '10m', :first_in => 0 do |job|
         tum_photos = data["response"]["blog"]["posts"].to_i
 	
 	# append flickr urls at the end
-        #photos = flickr_urls("flickr_public", flickrID)
-	#flick_photos = photos.count
+        photos = flickr_urls("public", flickrID)
+	flick_photos = photos.count
 	flick_photos = 0;
 
 	all_photos = tum_photos + flick_photos
@@ -49,13 +49,14 @@ end
 
 
 def flickr_urls(type, flickr_id)
-	doc=Nokogiri::HTML(open("http://ycpi.api.flickr.com/services/feeds/photos_#{type}.gne?id=#{flickr_id}"))
+	# https://api.flickr.com/services/feeds/photos_public.gne?id=101571970@N05
+	doc=Nokogiri::HTML(open("http://api.flickr.com/services/feeds/photos_#{type}.gne?id=#{flickr_id}"))
 	photos = Array.new;
 	doc.css('entry link').each do |link|
 		if (link.attr('rel') == 'enclosure')
 			photos.push(link.attr('href'))
 		end
 	end
-	p photos
+	#p photos
 	return photos
 end
