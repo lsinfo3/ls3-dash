@@ -13,7 +13,7 @@ SCHEDULER.every '10m', first_in: 0 do
 
   current_dish = nil
   current_day = nil
-  days = %w(monday thuesday wednesday thursday friday).each
+  days = %w(monday tuesday wednesday thursday friday).each
   menu = []
 
   current_line = 0
