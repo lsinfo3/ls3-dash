@@ -10,7 +10,7 @@ SCHEDULER.every '1200s', :first_in => 2 do
   elsif (day.to_i == 6) or (day.to_i == 0)
 	  data = { title: "Today", text: "is the weekend!" }
   else
-  	to_friday = 5 - day.to_i
+  	to_friday = 5 - day.to_i + 1
 	data = { title:  "#{to_friday} days", text: "till Friday." }
   end
   
