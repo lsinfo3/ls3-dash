@@ -9,7 +9,7 @@ tumblrToken = "0JqbvujVVKwRbyO9F2snB7JqVXk8Yzt1VT0vfdw6mC2pbC0Znz" # your Tumblr
 tumblrUri = "ls3admin.tumblr.com" # the URL of the blog on Tumblr, ex: inspire.niptech.com
 flickrID = "90962754@N00"
 
-SCHEDULER.every '10m', :first_in => 0 do |job|
+SCHEDULER.every '3m', :first_in => 0 do |job|
     http = Net::HTTP.new("api.tumblr.com")
     response = http.request(Net::HTTP::Get.new("/v2/blog/#{tumblrUri}/info?api_key=#{tumblrToken}"))
     if response.code == "200"
