@@ -6,7 +6,7 @@ SCHEDULER.every '1200s', :first_in => 2 do
   if day.to_i == 4
 	  data = { title: "Tomorrow", text: "is Friday!" }
   elsif day.to_i == 5
-	  data = { title: "Today", text: "is Friday!" }
+	  data = { title: "Thank god", text: "it's Friday!" }
   elsif (day.to_i == 6) or (day.to_i == 0)
 	  data = { title: "Today", text: "is the weekend!" }
   else
