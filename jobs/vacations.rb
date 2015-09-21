@@ -8,13 +8,22 @@ password = ENV['CHRONOS_PASSWORD']
 calendar = 'https://chronos.informatik.uni-wuerzburg.de/vacation/home'
 
 def icon_for_event(vacation_event)
-  vacation_event.categories.first.downcase
+  icons = {
+    'urlaub' => 'glass',
+    'dienstreise' => 'laptop'
+  }
+
+  icons.fetch(vacation_event.categories.first.downcase, 'question')
 end
 
 def vacation_includes_date?(vacation_event, date)
   regular_event_occurs = (vacation_event.dtstart.to_date..vacation_event.dtend.to_date).include?(date)
   repeated_event_occurs = !vacation_event.occurrences_between(date, date + 1).empty?
   regular_event_occurs || repeated_event_occurs
+end
+
+def days_of_vacation_next_week_for(vacation_events, name, start_week, end_week)
+  1
 end
 
 SCHEDULER.every '1h', first_in: 0 do
@@ -44,16 +53,21 @@ SCHEDULER.every '1h', first_in: 0 do
   vacations_next_week = []
 
   vacations.events.each do |event|
-    vacations_today << { label: event.summary.to_s, category: icon_for_event(event)} if vacation_includes_date? event, today
-    vacations_tomorrow << { label: event.summary.to_s, category: icon_for_event(event) } if vacation_includes_date? event, tomorrow
-    vacations_next_week << { label: event.summary.to_s, category: icon_for_event(event) } if next_week.any? { |date| vacation_includes_date? event, date }
+    vacations_today << { label: event.summary.to_s, icon: icon_for_event(event)} if vacation_includes_date? event, today
+    vacations_tomorrow << { label: event.summary.to_s, icon: icon_for_event(event) } if vacation_includes_date? event, tomorrow
+    vacations_next_week << { label: event.summary.to_s, icon: icon_for_event(event) } if next_week.any? { |date| vacation_includes_date? event, date }
   end
 
-  vacation_information = {
-    today: [] | vacations_today.sort_by { |e| e[:label] }.uniq,
-    tomorrow: [] | vacations_tomorrow.sort_by { |e| e[:label] }.uniq,
-    next_week: [] | vacations_next_week.sort_by { |e| e[:label] }.uniq
-  }
+  vacations_next_week.each do |entry|
+    entry[:count] = days_of_vacation_next_week_for(vacations.events, entry[:label], next_monday, next_friday)
+  end
 
-  send_event 'vacations', vacation_information
+  vacation_information = [
+    {label: 'Today', items: vacations_today.sort_by { |e| e[:label] }.uniq},
+    {label: 'Tomorrow', items: vacations_tomorrow.sort_by { |e| e[:label] }.uniq},
+    {label: 'Next Week', items: vacations_next_week.sort_by { |e| e[:label] }.uniq}
+  ]
+
+  p vacation_information
+  send_event 'vacations', data: vacation_information
 end

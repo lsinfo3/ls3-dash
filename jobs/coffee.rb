@@ -40,7 +40,6 @@ SCHEDULER.every '15s', first_in: 0 do
     last_coffee =  DateTime.now if previous_is_cooking && !is_cooking
 
     data = { points: points, coffee_status: is_cooking, last_coffee: last_coffee.to_s }
-    p data
     send_event('coffee', data)
   end
 end

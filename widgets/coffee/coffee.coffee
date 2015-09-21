@@ -28,7 +28,15 @@ class Dashing.Coffee extends Dashing.Widget
 
     @graph.series[0].data = @get('points') if @get('points')
 
-    x_axis = new Rickshaw.Graph.Axis.X(graph: @graph)
+    format = (i) ->
+      m = {
+        50: "-20 m",
+        100: "-10 m",
+      }
+      m[i]
+      i
+
+    x_axis = new Rickshaw.Graph.Axis.X(graph: @graph, pixelsPerTick: 100, tickFormat: format)
     y_axis = new Rickshaw.Graph.Axis.Y(graph: @graph, tickFormat: Rickshaw.Fixtures.Number.formatKMBT)
     @graph.render()
 
