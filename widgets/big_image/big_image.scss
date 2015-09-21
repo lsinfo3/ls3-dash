@@ -1,0 +1,37 @@
+// ----------------------------------------------------------------------------
+// Sass declarations
+// ----------------------------------------------------------------------------
+$background-color:  #4b4b4b;
+$title-color:       rgba(255, 255, 255, 0.7);
+$moreinfo-color:    rgba(255, 255, 255, 0.3);
+
+
+// ----------------------------------------------------------------------------
+// Widget-image styles
+// ----------------------------------------------------------------------------
+div.widget-big-image {
+    padding: 0;
+    background-color: $background-color;
+
+  .title {
+    color: $title-color;
+  }
+
+  .more-info {
+    color: $moreinfo-color;
+  }
+
+  .updated-at {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &.large h3 {
+    font-size: 65px;
+  }
+   
+video {
+        width: 100%
+    }
+
+
+}
