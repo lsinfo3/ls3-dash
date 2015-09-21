@@ -11,7 +11,10 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
 // ----------------------------------------------------------------------------
 // Widget-list styles
 // ----------------------------------------------------------------------------
-.widget-vacations {
+.widget-table {
+  .count {
+    float: right;
+  }
 
   background-color: $background-color;
   vertical-align: top;

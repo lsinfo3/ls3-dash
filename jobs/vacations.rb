@@ -23,7 +23,13 @@ def vacation_includes_date?(vacation_event, date)
 end
 
 def days_of_vacation_next_week_for(vacation_events, name, start_week, end_week)
-  1
+  vacation_events.select { |e|
+    e.summary.to_s == name
+  }.select { |e|
+    !(start_week > e.dtend.to_date || end_week < e.dtstart.to_date)
+  }.map { |e|
+    ([end_week, e.dtend.to_date.to_date].min - [start_week, e.dtstart.to_date].max).to_i + 1
+  }.sum
 end
 
 SCHEDULER.every '1h', first_in: 0 do
@@ -68,6 +74,5 @@ SCHEDULER.every '1h', first_in: 0 do
     {label: 'Next Week', items: vacations_next_week.sort_by { |e| e[:label] }.uniq}
   ]
 
-  p vacation_information
   send_event 'vacations', data: vacation_information
 end
