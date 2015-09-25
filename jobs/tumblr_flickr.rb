@@ -24,7 +24,7 @@ SCHEDULER.every '3m', :first_in => 0 do |job|
 	flick_photos = 0;
 
 	all_photos = tum_photos + flick_photos
-	if (Random.rand(0..1) <= 0.3)
+	if (Random.rand(0..1) <= 0.1)
 		randomNum = 0
 	else
 	        randomNum = Random.rand(0..(all_photos-1))
