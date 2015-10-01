@@ -14,6 +14,6 @@ SCHEDULER.every '1200s', :first_in => 2 do
 	data = { title:  "#{to_friday} days", text: "till Friday." }
   end
   
-  data.merge! moreinfo: "Current date: %s" % date.strftime("%A, %d.%m.%Y")
+  #  data.merge! moreinfo: "Current date: %s" % date.strftime("%A, %d.%m.%Y")
   send_event 'days-till-friday', data
 end
