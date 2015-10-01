@@ -38,9 +38,18 @@ SCHEDULER.every '3m', :first_in => 0 do |job|
 		# Retrieve one random post
 	        http = Net::HTTP.new("api.tumblr.com")
         	response = http.request(Net::HTTP::Get.new("/v2/blog/#{tumblrUri}/posts?api_key=#{tumblrToken}&offset=#{randomNum}&limit=1"))
+        	p "/v2/blog/#{tumblrUri}/posts?api_key=#{tumblrToken}&offset=#{randomNum}&limit=1"
 	        if Net::HTTPSuccess
         	    data = JSON.parse(response.body)
-		    send_event('tumblr', { text: data["response"]["posts"][0]["caption"].gsub(/<\/?[^>]+>/, ''), image: data["response"]["posts"][0]["photos"][0]["alt_sizes"][1]["url"], moreinfo: tumblrUri})
+		    media_type = data["response"]["posts"][0]["type"]
+		    p media_type
+		    p data["response"]["posts"][0]["caption"].gsub(/<\/?[^>]+>/, '')
+		    if (media_type == "video") 
+		    	send_event('tumblr', { text: data["response"]["posts"][0]["caption"].gsub(/<\/?[^>]+>/, ''), image: data["response"]["posts"][0]["video_url"], moreinfo: tumblrUri})
+		    else
+		    	p data["response"]["posts"][0]["photos"][0]["alt_sizes"][1]["url"]
+		    	send_event('tumblr', { text: data["response"]["posts"][0]["caption"].gsub(/<\/?[^>]+>/, ''), image: data["response"]["posts"][0]["photos"][0]["alt_sizes"][1]["url"], moreinfo: tumblrUri})
+		    end
         	end
 	else
 		# if flickr
