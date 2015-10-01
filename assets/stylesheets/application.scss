@@ -45,7 +45,7 @@ html {
 body {
   margin: 0;
   background-color: $background-color;
-  font-size: 20px;
+  font-size: 25px;
   color: $text-color;
   font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -95,17 +95,17 @@ h1, h2, h3, h4, h5, p {
 h1 {
   margin-bottom: 12px;
   text-align: center;
-  font-size: 30px;
+  font-size: 40px;
   font-weight: 400;
 }
 h2 {
   text-transform: uppercase;
-  font-size: 76px;
+  font-size: 86px;
   font-weight: 700;
   color: $text-color;
 }
 h3 {
-  font-size: 25px;
+  font-size: 35px;
   font-weight: 600;
   color: $text-color;
 }
@@ -179,15 +179,15 @@ h3 {
 }
 
 .more-info {
-  font-size: 15px;
+  font-size: 25px;
   position: absolute;
-  bottom: 32px;
+  bottom: 40px;
   left: 0;
   right: 0;
 }
 
 .updated-at {
-  font-size: 15px;
+  font-size: 17px;
   position: absolute;
   bottom: 12px;
   left: 0;
