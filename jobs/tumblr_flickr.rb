@@ -48,7 +48,7 @@ SCHEDULER.every '3m', :first_in => 0 do |job|
 			# not supported by the pi :|
 		    	# send_event('tumblr', { text: data["response"]["posts"][0]["caption"].gsub(/<\/?[^>]+>/, ''), image: data["response"]["posts"][0]["video_url"], moreinfo: tumblrUri})
 		    	# FIXME
-		    	send_event('tumblr', { text: data["response"]["posts"][0]["caption"].gsub(/<\/?[^>]+>/, ''), image: 'http://41.media.tumblr.com/a7b0517376905ffa1724616df01f5b74/tumblr_nvhdae5ebx1ugfg8eo1_1280.jpg', moreinfo: tumblrUri})
+		    	send_event('tumblr', { text: '', image: 'http://41.media.tumblr.com/a7b0517376905ffa1724616df01f5b74/tumblr_nvhdae5ebx1ugfg8eo1_1280.jpg', moreinfo: tumblrUri})
 		    else
 		    	p data["response"]["posts"][0]["photos"][0]["alt_sizes"][1]["url"]
 		    	send_event('tumblr', { text: data["response"]["posts"][0]["caption"].gsub(/<\/?[^>]+>/, ''), image: data["response"]["posts"][0]["photos"][0]["alt_sizes"][1]["url"], moreinfo: tumblrUri})
