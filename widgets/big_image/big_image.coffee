@@ -26,12 +26,10 @@ class Dashing.BigImage extends Dashing.Widget
 
         if height >= width
             $img.css
-               'height': '1500'
-               'vertical-align': 'bottom'
+               'height': maxHeight
         else
             $img.css
-               'width':'1500'
-               'vertical-align': 'bottom'
+               'width': maxWidth
 
     getImageSize = ($img, done) ->
         loadedHandler = ->

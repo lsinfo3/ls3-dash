@@ -24,12 +24,14 @@ SCHEDULER.every '3m', :first_in => 0 do |job|
 	flick_photos = 0;
 
 	all_photos = tum_photos + flick_photos
+	end_pics = [all_photos, 10].min
 	if (Random.rand(0..1) <= 0.1)
 		randomNum = 0
+	elsif (Random.rand(0..1) <= 0.8)
+	        randomNum = Random.rand(1..(end_pics -1))
 	else
-	        randomNum = Random.rand(0..(all_photos-1))
+	        randomNum = Random.rand(end_pics..(all_photos-1))
 	end
-	p randomNum
 
 	if (randomNum <= (tum_photos-1))
 		# tumblr
