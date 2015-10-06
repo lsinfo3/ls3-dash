@@ -10,5 +10,6 @@ gem 'icalendar-recurrence'
 gem 'mechanize'
 gem 'yomu'
 gem 'nokogiri'
+gem 'dota'
 
 gem 'pry'
