@@ -7,8 +7,8 @@ players = {
 }
 
 Dota.configure do |config|
-  config.api_key = ENV.fetch('STEAM_API_KEY')
-end
+  config.api_key = ENV.fetch('STEAM_API_KEY') if ENV.has_key?('STEAM_API_KEY')
+end 
 
 def matches_won(matches, player_id)
   won = matches.inject(0) do |sum, match|
