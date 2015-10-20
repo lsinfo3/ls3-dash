@@ -48,7 +48,7 @@ SCHEDULER.every '3m', :first_in => 0 do |job|
 		    	send_event('tumblr', { text: data["response"]["posts"][0]["caption"].gsub(/<\/?[^>]+>/, ''), image: data["response"]["posts"][0]["video_url"], moreinfo: tumblrUri})
 		    else
 		    	p data["response"]["posts"][0]["photos"][0]["alt_sizes"][1]["url"]
-		    	send_event('tumblr', { text: data["response"]["posts"][0]["caption"].gsub(/<\/?[^>]+>/, ''), image: data["response"]["posts"][0]["photos"][0]["alt_sizes"][1]["url"], moreinfo: tumblrUri})
+		    	send_event('tumblr', { text: data["response"]["posts"][0]["caption"].gsub(/<\/?[^>]+>/, ''), image: data["response"]["posts"][0]["photos"][0]["alt_sizes"][0]["url"], moreinfo: tumblrUri})
 		    end
         	end
 	else
