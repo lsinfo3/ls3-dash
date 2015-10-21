@@ -28,7 +28,7 @@ def days_of_vacation_next_week_for(vacation_events, name, start_week, end_week)
  }.select { |e|
     !(start_week > e.dtend.to_date || end_week < e.dtstart.to_date)
   }.map { |e|
-    ([end_week, (e.dtend.to_date.to_time - 1.second)].min - [start_week, e.dtstart.to_date].max).to_i + 1
+    ([end_week, (e.dtend.to_date.to_time - 1.second).to_date].min - [start_week, e.dtstart.to_date].max).to_i + 1
   }.sum
 end
 
