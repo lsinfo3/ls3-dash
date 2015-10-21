@@ -17,8 +17,8 @@ def icon_for_event(vacation_event)
 end
 
 def vacation_includes_date?(vacation_event, date)
-  regular_event_occurs = (vacation_event.dtstart.to_date..vacation_event.dtend.to_date).include?(date)
-  repeated_event_occurs = !vacation_event.occurrences_between(date, date + 1).empty?
+  regular_event_occurs = (vacation_event.dtstart.to_date...vacation_event.dtend.to_date).include?(date)
+  repeated_event_occurs = !vacation_event.occurrences_between(date, (date.to_time + 1.day - 1.second).to_datetime).empty?
   regular_event_occurs || repeated_event_occurs
 end
 
@@ -26,10 +26,9 @@ def days_of_vacation_next_week_for(vacation_events, name, start_week, end_week)
   vacation_events.select { |e|
     e.summary.to_s == name
  }.select { |e|
-    p "#{name}> #{e.dtend.to_date}"
     !(start_week > e.dtend.to_date || end_week < e.dtstart.to_date)
   }.map { |e|
-    ([end_week, e.dtend.to_date.to_date].min - [start_week, (e.dtstart.to_date + 1)].max).to_i + 1
+    ([end_week, (e.dtend.to_date.to_time - 1.second)].min - [start_week, e.dtstart.to_date].max).to_i + 1
   }.sum
 end
 
