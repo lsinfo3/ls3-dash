@@ -20,11 +20,12 @@ def menu_for(date, site)
   end
 end
 
-SCHEDULER.every '30m', first_in: 0 do
+SCHEDULER.every '10m', first_in: 0 do
   site = Nokogiri::HTML(open(url))
 
-  send_event 'mensahubland', data: [
-    {label: 'Today', items: menu_for(today, site)},
-    {label: 'Tomorrow', items: menu_for(tomorrow, site)}
-  ]
+  data = []
+  data << {label: 'Today', items: menu_for(today, site)} if !(today.saturday? || today.sunday?)
+  data << {label: 'Tomorrow', items: menu_for(tomorrow, site)} if !(tomorrow.saturday? || tomorrow.sunday?)
+
+  send_event 'mensahubland', data: data
 end
