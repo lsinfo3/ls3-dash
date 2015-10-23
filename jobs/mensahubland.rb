@@ -25,7 +25,7 @@ SCHEDULER.every '10m', first_in: 0 do
 
   data = []
   data << {label: 'Today', items: menu_for(today, site)} if !(today.saturday? || today.sunday?)
-  data << {label: 'Tomorrow', items: menu_for(tomorrow, site)} if !(tomorrow.saturday? || tomorrow.sunday?)
+  data << {label: 'Tomorrow', items: menu_for(tomorrow, site)} if !(tomorrow.saturday? || tomorrow.sunday?)
 
   send_event 'mensahubland', data: data
 end
