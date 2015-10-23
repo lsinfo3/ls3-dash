@@ -16,6 +16,11 @@ $moreinfo-color:    rgba(255, 255, 255, 0.7);
     float: right;
   }
 
+  .no_items {
+    color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+  }
+
   background-color: $background-color;
   vertical-align: top;
 
