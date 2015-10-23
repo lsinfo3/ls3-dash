@@ -43,9 +43,11 @@ SCHEDULER.every '10m', first_in: 0 do
     current_line += 1
   end
 
-  p relevant_menus = menu.each_with_index.select { |entry, index|
+  relevant_menus = menu.each_with_index.select { |entry, index|
     (index + 1 == today.wday) || (index + 1 == tomorrow.wday)
   }.map { |entry, index| entry }
+
+  relevant_menus = {empty: 'no special offers today'} if (relevant_menus.empty? && !today.sunday?)
 
   send_event('dees', data: relevant_menus)
 end

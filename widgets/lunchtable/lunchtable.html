@@ -1,15 +1,19 @@
 <h1 class="title" data-bind="title"></h1>
 
-<div data-foreach-toplevel="data">
-<h1 data-bind="toplevel.label"></h1>
-<ul class="list-nostyle">
-  <li data-foreach-item="toplevel.items">
-    <span class="label"><i data-insertif="item.icon" data-bind-class="item.icon | prepend 'fa icon-'"></i>
-    <span data-bind="item.label"></span></span>
-    <span class="count" data-insertif="item.count" data-bind="item.count"></span>
-  </li>
-  <li data-hideif="toplevel.items[0].label"><div class="no_items">&mdash;</div></li>
-</ul>
+<div data-hideif="data[0].label">
+	<div class="no_items" data-showif="data.empty" data-bind="data.empty"></div>
+	<div class="no_items" data-hideif="data.empty">closed today</div>
+</div>
+<div data-showif="data[0].label" data-foreach-toplevel="data">
+	<h1 data-bind="toplevel.label"></h1>
+	<ul class="list-nostyle">
+	  <li data-hideif="toplevel.items[0].label"><div class="no_items">closed</div></li>
+	  <li data-foreach-item="toplevel.items">
+	    <span class="label"><i data-insertif="item.icon" data-bind-class="item.icon | prepend 'fa icon-'"></i>
+	    <span data-bind="item.label"></span></span>
+	    <span class="count" data-insertif="item.count" data-bind="item.count"></span>
+	  </li>
+	</ul>
 </div>
 
 <p class="updated-at" data-bind="updatedAtMessage"></p>
