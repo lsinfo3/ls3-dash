@@ -23,13 +23,13 @@ def vacation_includes_date?(vacation_event, date)
 end
 
 def days_of_vacation_next_week_for(vacation_events, name, start_week, end_week)
-  vacation_events.select { |e|
+  vacation_events.select do |e|
     e.summary.to_s == name
- }.select { |e|
+  end.select do |e|
     !(start_week > e.dtend.to_date || end_week < e.dtstart.to_date)
-  }.map { |e|
+  end.map do |e|
     ([end_week, (e.dtend.to_date.to_time - 1.second).to_date].min - [start_week, e.dtstart.to_date].max).to_i + 1
-  }.sum
+  end.sum
 end
 
 SCHEDULER.every '1h', first_in: 0 do
@@ -59,7 +59,7 @@ SCHEDULER.every '1h', first_in: 0 do
   vacations_next_week = []
 
   vacations.events.each do |event|
-    vacations_today << { label: event.summary.to_s, icon: icon_for_event(event)} if vacation_includes_date? event, today
+    vacations_today << { label: event.summary.to_s, icon: icon_for_event(event) } if vacation_includes_date? event, today
     vacations_tomorrow << { label: event.summary.to_s, icon: icon_for_event(event) } if vacation_includes_date? event, tomorrow
     vacations_next_week << { label: event.summary.to_s, icon: icon_for_event(event) } if next_week.any? { |date| vacation_includes_date? event, date }
   end
@@ -69,9 +69,9 @@ SCHEDULER.every '1h', first_in: 0 do
   end
 
   vacation_information = [
-    {label: 'Today', items: vacations_today.sort_by { |e| e[:label] }.uniq},
-    {label: 'Tomorrow', items: vacations_tomorrow.sort_by { |e| e[:label] }.uniq},
-    {label: 'Next Week', items: vacations_next_week.sort_by { |e| e[:label] }.uniq}
+    { label: 'Today', items: vacations_today.sort_by { |e| e[:label] }.uniq },
+    { label: 'Tomorrow', items: vacations_tomorrow.sort_by { |e| e[:label] }.uniq },
+    { label: 'Next Week', items: vacations_next_week.sort_by { |e| e[:label] }.uniq }
   ]
 
   send_event 'vacations', data: vacation_information
