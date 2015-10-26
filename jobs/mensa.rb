@@ -4,9 +4,6 @@ require 'date'
 
 config = { 'mensateria' => 'http://www.studentenwerk-wuerzburg.de/wuerzburg/essen-trinken/speiseplaene.html?tx_thmensamenu_pi2%5Bmensen%5D=54&tx_thmensamenu_pi2%5Baction%5D=show&tx_thmensamenu_pi2%5Bcontroller%5D=Speiseplan&cHash=c17db9c6513c97243f2ff16086a7d191', 'mensahubland' => 'https://www.studentenwerk-wuerzburg.de/wuerzburg/essen-trinken/speiseplaene.html?tx_thmensamenu_pi2[mensen]=7&tx_thmensamenu_pi2[action]=show&tx_thmensamenu_pi2[controller]=Speiseplan&cHash=efe40abc8afe9bcac3abf914dff9d943' }
 
-today = Date.today
-tomorrow = today + 1
-
 def format_date(date)
   date.strftime '%d.%m.'
 end
@@ -25,6 +22,9 @@ end
 config.each do |handle, url|
   SCHEDULER.every '10m', first_in: 0 do
     site = Nokogiri::HTML(open(url))
+    
+    today = Date.today
+    tomorrow = today + 1
 
     data = []
     data << { label: 'Today', items: menu_for(today, site) } unless today.saturday? || today.sunday?
