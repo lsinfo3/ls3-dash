@@ -1,0 +1,50 @@
+// ----------------------------------------------------------------------------
+// Sass declarations
+// ----------------------------------------------------------------------------
+$background-color:  #ec663c;
+
+$title-color:       rgba(255, 255, 255, 0.7);
+$moreinfo-color:    rgba(255, 255, 255, 0.3);
+
+$meterright-background:  darken($background-color, 15%);
+
+// ----------------------------------------------------------------------------
+// Widget-meter styles
+// ----------------------------------------------------------------------------
+.widget-meterright {
+
+  background-color: $background-color;
+  
+  input.meterright {
+    background-color: $meterright-background;
+    color: #fff;
+  }
+
+  .title {
+    color: $title-color;
+  }
+
+  .wrap {
+   width: 100% !important;
+   display: inline-block;
+   margin:0 auto;
+  }
+
+  .left_col {
+     float:left;
+     width: 350px; 
+  }
+
+  .right_col {
+     float: right;
+     width: 200px;
+  }
+  .more-info {
+    color: $moreinfo-color;
+  }
+
+  .updated-at {
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+}
