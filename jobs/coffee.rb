@@ -57,8 +57,11 @@ end
 def get_avg_brewing_duration
   elastic_url = 'http://132.187.12.139:9200/logstash-*/_search'
   q = '{ "query": { "filtered": { "query": {"query_string": { "analyze_wildcard": true, "query": "_type:\"coffee log file\" AND log_event:\"Kaffee fertig!\" -elapsed_time:[* TO 200]" } } } },"size": 0, "aggs": { "1": { "avg": { "field": "elapsed_time" } } } }'
-  r = JSON.parse RestClient.get(elastic_url, params: { source: q })
-  r['aggregations']['1']['value']
+  begin
+  	r = JSON.parse RestClient.get(elastic_url, params: { source: q })
+	r['aggregations']['1']['value']
+  rescue Errno::ECONNREFUSED
+ 	443  
 end
 
 SCHEDULER.every '1h', first_in: 0 do
