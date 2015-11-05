@@ -61,7 +61,8 @@ def get_avg_brewing_duration
   	r = JSON.parse RestClient.get(elastic_url, params: { source: q })
 	r['aggregations']['1']['value']
   rescue Errno::ECONNREFUSED
- 	443  
+ 	443
+  end	
 end
 
 SCHEDULER.every '1h', first_in: 0 do
