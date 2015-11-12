@@ -4,7 +4,7 @@
 <h1 data-bind="toplevel.label"></h1>
 <ul class="list-nostyle">
   <li data-foreach-item="toplevel.items">
-    <i data-insertif="item.icon" data-bind-class="item.icon | prepend 'fa icon-'"></i>
+    <i data-insertif="item.icon" data-bind-class="item.icon | prepend 'fa fa-fw icon-'"></i>
     <span class="label" data-bind="item.label"></span>
     <span class="count" data-insertif="item.count" data-bind="item.count"></span>
   </li>

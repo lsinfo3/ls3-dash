@@ -13,7 +13,7 @@ def icon_for_event(vacation_event)
     'dienstreise' => 'laptop'
   }
 
-  icons.fetch(vacation_event.categories.first.downcase, 'question')
+  icons.fetch((vacation_event.categories.first || '').downcase, 'question')
 end
 
 def vacation_includes_date?(vacation_event, date)
