@@ -119,15 +119,12 @@ h3 {
 }
 
 .icon-background {
-  width: 100%!important;
-  height: 100%;
   position: absolute;
-  left: 0;
-  top: 0;
+  bottom: 10px;
+  right: 10px;
   opacity: 0.1;
-  font-size: 275px;
   text-align: center;
-  margin-top: 82px;
+  font-size: 80px!important;
 }
 
 .list-nostyle {

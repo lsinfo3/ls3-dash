@@ -1,8 +1,16 @@
 <% content_for :title do %>Gallery<% end %>
+<script>
+$(document).ready(function(){
+	setTimeout(function(){
+		$(".icon-background").animate({opacity: 0},10000);
+	},10000);
+});
+</script>
 <div class="gridster">
   <ul>
    <li data-row="1" data-col="1" data-sizex="4" data-sizey="3">
       <div data-id="tumblr" data-view="BigImage" data-image="" style="background-color:#632F00;" data-max="true" data-text="" data-moreinfo=""></div>
-      </li>
+      <i class="fa fa-picture-o icon-background"></i>
+   </li>
   </ul>
 </div>

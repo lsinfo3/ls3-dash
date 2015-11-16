@@ -1,12 +1,21 @@
 <% content_for :title do %>Lunch<% end %>
+<script>
+$(document).ready(function(){
+	setTimeout(function(){
+		$(".icon-background").animate({opacity: 0},10000);
+	},10000);
+});
+</script>
 <div class="gridster">
   <ul>
     <li data-row="1" data-col="1" data-sizex="2" data-sizey="3">
       <div data-id="mensahubland" data-view="Lunchtable" data-title="Mensa am Hubland"></div>
+      <i class="fa fa-cutlery icon-background"></i>
     </li>
 
     <li data-row="1" data-col="3" data-sizex="2" data-sizey="3">
       <div data-id="mensateria" data-view="Lunchtable" data-title="Mensateria" style="background-color:#9c4274;"></div>
+      <i class="fa fa-cutlery icon-background"></i>
     </li>
 
   </ul>
