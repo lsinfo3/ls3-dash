@@ -18,11 +18,26 @@
 
 </head>
   <body>
+     
+   <style type='text/css'>
+     #dc-switcher-next { padding-left: 5px; }
+     #dc-switcher-next-name, #dc-switcher-countdown { color: #ddd; }
+     #dc-switcher-pause-reset { padding-left: 5px; }
+     #dc-switcher-controls { float: right; margin-right: 100px; margin-top:20px }
+     #dc-switcher-stopper:hover, #dc-switcher-next:hover { cursor: pointer; cursor: hand;}
+     .switcher-text { color: white; font-weight: bold }
+   </style>
+
+   <div id='dc-switcher-controls'>
+     <dashboard-name-template>
+     </dashboard-name-template>
+   </div>
+
     <div id="container" data-switcher-interval="30000" data-switcher-dashboards="vacation_coffee lunch_mensa dees_dota gallery">
       <%= yield %>
     </div>
 
-    <% if development? %>
+   <% if development? %>
       <div id="saving-instructions">
         <p>Paste the following at the top of <i><%= params[:dashboard] %>.erb</i></p>
         <textarea id="gridster-code"></textarea>
