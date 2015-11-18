@@ -27,6 +27,8 @@ coffee_start_text = 'Ein lieber Mitarbeiter macht Kaffee...'
 coffee_brewing_finished_text = 'Kaffee fertig!'
 send_event('coffee-text', { value: 0 })
 
+    send_event('coffee-text', { value: 100, text: coffee_brewing_finished_text }) 
+
 SCHEDULER.every '15s', first_in: 0 do
   m.get(url) do |page|
     form = page.form_with(:action => '/auth.asp') do |f|
@@ -47,10 +49,10 @@ SCHEDULER.every '15s', first_in: 0 do
     is_cooking = watt > cooking_threshold ? true : false
     last_coffee = DateTime.now if previous_is_cooking && !is_cooking
     last_coffee_start = DateTime.now if is_cooking && !previous_is_cooking
-    send_event('coffee-text', { value: 100, text: coffee_brewing_finished_text }) if previous_is_cooking && !is_cooking
-
+    
     data = { points: points, coffee_status: is_cooking ? 'filling' : 'unknown', elast_coffee: last_coffee.to_s }
     send_event('coffee', data)
+    send_event('coffee-text', { value: 100, text: coffee_brewing_finished_text }) if previous_is_cooking && !is_cooking
   end
 end
 
@@ -60,7 +62,7 @@ def get_avg_brewing_duration
   begin
   	r = JSON.parse RestClient.get(elastic_url, params: { source: q })
 	r['aggregations']['1']['value']
-  rescue Errno::ECONNREFUSED
+  rescue Errno::ECONNREFUSED, Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError, RestClient::RequestTimeout
  	443
   end	
 end
