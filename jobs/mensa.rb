@@ -11,9 +11,9 @@ end
 def menu_for(date, site)
   site.css("div[data-day~='#{format_date date}'] .menu").map do |e|
     {
-      icon: e.css('.icon .theicon').attr('title').value.gsub(/\w+/, 'Fleischlos' => 'leaf'), # Gefluegel => "twitter", Schwein => ?, Fisch => ?
-      label: e.css('.left .title').text.strip,
-      count: e.css('.price').attr('data-bed').value
+      icon: (e.css('.icon .theicon').attr('title').value.gsub(/\w+/, 'Fleischlos' => 'leaf') rescue ""), # Gefluegel => "twitter", Schwein => ?, Fisch => ?
+      label: (e.css('.left .title').text.strip rescue ""),
+      count: (e.css('.price').attr('data-bed').value rescue "")
     }
   end
 end
