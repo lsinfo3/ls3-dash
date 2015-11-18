@@ -11,5 +11,6 @@ gem 'mechanize'
 gem 'yomu'
 gem 'nokogiri'
 gem 'dota'
+gem 'net-http-oauth'
 
 gem 'pry'

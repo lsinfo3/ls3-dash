@@ -1,16 +1,32 @@
 #!/usr/bin/env ruby
 require 'net/http'
+require 'net/http/oauth'
 require 'open-uri'
 require 'nokogiri'
 require 'json'
 
-tumblrToken = '0JqbvujVVKwRbyO9F2snB7JqVXk8Yzt1VT0vfdw6mC2pbC0Znz' # your Tumblr token/API Key (http://www.tumblr.com/docs/en/api/v2#auth)
-tumblrUri = 'ls3admin.tumblr.com' # the URL of the blog on Tumblr, ex: inspire.niptech.com
+tumblrUri = 'ls3photos.tumblr.com' # the URL of the blog on Tumblr, ex: inspire.niptech.com
+oauth_consumer_key =    '0JqbvujVVKwRbyO9F2snB7JqVXk8Yzt1VT0vfdw6mC2pbC0Znz'
+oauth_consumer_secret = 'GEsZsq0YwzKHZfJPQUCOTqAN9QYSiyWKKfewk5B55BRJARJz7P'
+oauth_token =           'b24EtHEDy9vLTKb4TzqOqUJLN0VCbbzGOd5X32QnWe4kIsgoE6'
+oauth_token_secret =    'LFXUlsw8787fuGQv97n8A8UM6n4MX4NrdhJzMp2Im8syQowmFw'
+
 flickrID = '90962754@N00'
 
 SCHEDULER.every '3m', first_in: 0 do |_job|
-  http = Net::HTTP.new('api.tumblr.com')
-  response = http.request(Net::HTTP::Get.new("/v2/blog/#{tumblrUri}/info?api_key=#{tumblrToken}"))
+  http = Net::HTTP.new('api.tumblr.com', Net::HTTP.https_default_port)
+  http.use_ssl = true
+
+  get_request = Net::HTTP::Get.new("/v2/blog/#{tumblrUri}/info?api_key=#{oauth_consumer_key}")
+
+  Net::HTTP::OAuth.sign!(http, get_request, {
+    consumer_key: oauth_consumer_key,
+    consumer_secret: oauth_consumer_secret,
+    token: oauth_token,
+    token_secret: oauth_token_secret
+  })
+
+  response = http.request(get_request)
   if response.code == '200'
 
     # Retrieve total number of posts
@@ -29,14 +45,22 @@ SCHEDULER.every '3m', first_in: 0 do |_job|
       randomNum = Random.rand(1..(end_pics - 1))
     else
       randomNum = Random.rand(end_pics..(all_photos - 1))
-  end
+    end
 
     if (randomNum <= (tum_photos - 1))
       # tumblr
       # Retrieve one random post
-      http = Net::HTTP.new('api.tumblr.com')
-      response = http.request(Net::HTTP::Get.new("/v2/blog/#{tumblrUri}/posts?api_key=#{tumblrToken}&offset=#{randomNum}&limit=1"))
-      p "/v2/blog/#{tumblrUri}/posts?api_key=#{tumblrToken}&offset=#{randomNum}&limit=1"
+      
+      get_request = Net::HTTP::Get.new("/v2/blog/#{tumblrUri}/posts?api_key=#{oauth_consumer_key}&offset=#{randomNum}&limit=1")
+      Net::HTTP::OAuth.sign!(http, get_request, {
+        consumer_key: oauth_consumer_key,
+        consumer_secret: oauth_consumer_secret,
+        token: oauth_token,
+        token_secret: oauth_token_secret
+      })
+      response = http.request(get_request)
+      p "/v2/blog/#{tumblrUri}/posts?api_key=#{oauth_consumer_key}&offset=#{randomNum}&limit=1"
+      
       if Net::HTTPSuccess
         data = JSON.parse(response.body)
         media_type = data['response']['posts'][0]['type']
