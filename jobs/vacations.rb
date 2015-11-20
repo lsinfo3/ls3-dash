@@ -1,7 +1,14 @@
+require 'net/http'
+require 'set'
 require 'icalendar'
 require 'icalendar/recurrence'
-
-require 'net/http'
+module Icalendar
+  class Value
+    def eql?(other_key)
+      value == other_key.value
+    end
+  end
+end
 
 user = ENV['CHRONOS_USER']
 password = ENV['CHRONOS_PASSWORD']
@@ -65,7 +72,6 @@ SCHEDULER.every '1h', first_in: 0 do
 
   vacations_next_week.each do |entry|
     entry[:count] = days_of_vacation_next_week_for(vacations.events, entry[:label], entry[:type], next_monday, next_friday)
-    p entry[:count]
   end
 
   vacation_information = [
