@@ -41,10 +41,13 @@ SCHEDULER.every '3m', first_in: 0 do |_job|
     end_pics = [all_photos, 10].min
     if (Random.rand(0..1) <= 0.1)
       randomNum = 0
+      p "-> Newest picture"
     elsif (Random.rand(0..1) <= 0.8)
       randomNum = Random.rand(1..(end_pics - 1))
+      p "-> One of the 10 newest pictures"
     else
       randomNum = Random.rand(end_pics..(all_photos - 1))
+      p "-> Random picture"
     end
 
     if (randomNum <= (tum_photos - 1))
@@ -59,19 +62,21 @@ SCHEDULER.every '3m', first_in: 0 do |_job|
         token_secret: oauth_token_secret
       })
       response = http.request(get_request)
-      p "/v2/blog/#{tumblrUri}/posts?api_key=#{oauth_consumer_key}&offset=#{randomNum}&limit=1"
       
       if Net::HTTPSuccess
         data = JSON.parse(response.body)
         media_type = data['response']['posts'][0]['type']
         p media_type
-        p data['response']['posts'][0]['caption'].gsub(/<\/?[^>]+>/, '')
         if (media_type == 'video')
+          p data['response']['posts'][0]['caption'].gsub(/<\/?[^>]+>/, '')
           send_event('tumblr', text: data['response']['posts'][0]['caption'].gsub(/<\/?[^>]+>/, ''), image: data['response']['posts'][0]['video_url'], moreinfo: tumblrUri)
-        else
+        elsif (media_type == "photo")
+          p data['response']['posts'][0]['caption'].gsub(/<\/?[^>]+>/, '')
           p data['response']['posts'][0]['photos'][0]['alt_sizes'][1]['url']
           send_event('tumblr', text: data['response']['posts'][0]['caption'].gsub(/<\/?[^>]+>/, ''), image: data['response']['posts'][0]['photos'][0]['alt_sizes'][0]['url'], moreinfo: tumblrUri)
-          end
+	else 
+	   p "media type not supported: #{media_type}"	
+        end
       end
     else
       # if flickr
