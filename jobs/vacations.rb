@@ -12,7 +12,6 @@ def icon_for_event(vacation_event)
     'urlaub' => 'glass',
     'dienstreise' => 'laptop'
   }
-
   icons.fetch((vacation_event.categories.first || '').downcase, 'question')
 end
 
@@ -22,11 +21,11 @@ def vacation_includes_date?(vacation_event, date)
   regular_event_occurs || repeated_event_occurs
 end
 
-def days_of_vacation_next_week_for(vacation_events, name, start_week, end_week)
+def days_of_vacation_next_week_for(vacation_events, name, type, start_week, end_week)
   vacation_events.select do |e|
     e.summary.to_s == name
   end.select do |e|
-    !(start_week > e.dtend.to_date || end_week < e.dtstart.to_date)
+    !(start_week > e.dtend.to_date || end_week < e.dtstart.to_date) && (e.categories.first== type)
   end.map do |e|
     ([end_week, (e.dtend.to_date.to_time - 1.second).to_date].min - [start_week, e.dtstart.to_date].max).to_i + 1
   end.sum
@@ -59,13 +58,14 @@ SCHEDULER.every '1h', first_in: 0 do
   vacations_next_week = []
 
   vacations.events.each do |event|
-    vacations_today << { label: event.summary.to_s, icon: icon_for_event(event) } if vacation_includes_date? event, today
-    vacations_tomorrow << { label: event.summary.to_s, icon: icon_for_event(event) } if vacation_includes_date? event, tomorrow
-    vacations_next_week << { label: event.summary.to_s, icon: icon_for_event(event) } if next_week.any? { |date| vacation_includes_date? event, date }
+    vacations_today << { label: event.summary.to_s, icon: icon_for_event(event), type: event.categories.first } if vacation_includes_date? event, today
+    vacations_tomorrow << { label: event.summary.to_s, icon: icon_for_event(event), type: event.categories.first } if vacation_includes_date? event, tomorrow
+    vacations_next_week << { label: event.summary.to_s, icon: icon_for_event(event), type: event.categories.first } if next_week.any? { |date| vacation_includes_date? event, date }
   end
 
   vacations_next_week.each do |entry|
-    entry[:count] = days_of_vacation_next_week_for(vacations.events, entry[:label], next_monday, next_friday)
+    entry[:count] = days_of_vacation_next_week_for(vacations.events, entry[:label], entry[:type], next_monday, next_friday)
+    p entry[:count]
   end
 
   vacation_information = [
