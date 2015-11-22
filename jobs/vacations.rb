@@ -56,7 +56,7 @@ SCHEDULER.every '1h', first_in: 0 do
 
   today = Date.today
   tomorrow = today + 1
-  next_monday = today.next_day(7 - today.wday + 1)
+  next_monday = today.next_day(7 - ((today.wday - 1) % 7))
   next_friday = next_monday.next_day(4)
   next_week = (next_monday..next_friday)
 
