@@ -9,40 +9,33 @@ SCHEDULER.every '10m', first_in: 0 do
   next if !menu_plan_url.downcase.end_with? "pdf"
   menu_plan = Yomu.new(URI.encode(menu_plan_url)).text
 
+  days = %w(Montag, Dienstag, Mittwoch, Donnerstag, Freitag).each
   today = Date.today
   tomorrow = today + 1
 
-  current_dish = nil
   current_day = nil
-  days = %w(monday tuesday wednesday thursday friday).each
+  current_dish = { label: "" }
   menu = []
 
-  current_line = 0
-
   menu_plan.each_line.drop_while { |line| not /plan/ =~ line }.drop(2).each do |line|
-    break if /vorbehalten/ =~ line
+    break if /en Sie die M/ =~ line
 
     line.strip!
-    if current_line == 0
-      current_day = { items: [] }
-    elsif current_line == 2 || current_line == 7
-      current_dish = { label: line }
-    elsif current_line == 3 || current_line == 8
-      current_dish[:label] += " #{ line }"
-    elsif current_line == 5 || current_line == 10
+    
+    if line =~ /Montag|Dienstag|Mittwoch|Donnerstag|Freitag/ 
+      menu << current_day if !current_day.nil?
+      current_day = { label: line, items: [] }
+    elsif line =~ /[0-9]+,[0-9][0-9]+/
       current_dish[:count] = line
-    elsif current_line == 6 || current_line == 11
-      current_day[:items] << current_dish
+      current_day[:items] << current_dish 
+      current_dish = { label: "" }
+    else
+      line[0] = line[0].chr.downcase if !line.empty? && !current_dish[:label].strip.empty? && line =~ /^Mit|Dazu/
+      current_dish[:label] += " #{line}"
     end
 
-    if current_line == 11
-      current_day[:label] = days.next.titlecase
-      menu << current_day
-      current_line = -1
-    end
-
-    current_line += 1
   end
+  menu << current_day
 
   relevant_menus = menu.each_with_index.select { |entry, index|
     (index + 1 == today.wday) || (index + 1 == tomorrow.wday)
