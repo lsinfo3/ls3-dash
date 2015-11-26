@@ -6,24 +6,20 @@ class Dashing.Meterright extends Dashing.Widget
     paused = false
 
     @observe 'value', (value) ->
-      $(@node).find(".meterright").val(value).trigger('configure','format': (value) -> value + '%')
       $(@node).find(".meterright").val(value).trigger('change')
-      if value < 100 and not paused
-         console.log "pausing"
-         $('#dc-switcher-pause-reset').click()
-         paused = true
-         console.log "paused, status: " + paused
-      else if paused and value is 100
-         console.log "unpausing"
+      if (value == '00:00' or value == 0 or value == 100) and paused
          $('#dc-switcher-pause-reset').click()
          paused = false
-         console.log "unpaused, status: " + paused
+      else if /[0-9]+:[0-9]+/.test(value) and not paused
+         $('#dc-switcher-pause-reset').click()
+         paused = true
 
   ready: ->
     meterright = $(@node).find(".meterright")
     meterright.attr("data-bgcolor", meterright.css("background-color"))
     meterright.attr("data-fgcolor", meterright.css("color"))
-    meterright.knob('format': (value) -> value + '%')
-    $control.click()
- 
-
+    meterright.knob
+        "parse": (value) -> 
+            min = parseInt((value+"").split(':')[0])
+            sec = parseInt((value+"").split(':')[1])
+            parseFloat(min * 60 + sec)
