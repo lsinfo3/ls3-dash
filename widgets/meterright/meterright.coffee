@@ -19,6 +19,7 @@ class Dashing.Meterright extends Dashing.Widget
     meterright.attr("data-bgcolor", meterright.css("background-color"))
     meterright.attr("data-fgcolor", meterright.css("color"))
     meterright.knob
+        "font": "\"Open Sans\",\"Helvetica Neue\",Helvetica,Arial,sans-serif"
         "parse": (value) -> 
             min = parseInt((value+"").split(':')[0])
             sec = parseInt((value+"").split(':')[1])
