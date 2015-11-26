@@ -26,7 +26,7 @@ is_cooking = false
 avg_brewing_duration = nil 
 
 # send default value to dashboard
-send_event('coffee-text', { value: 100 }) # init
+send_event('coffee-text', { value: 100, text: "", max: 100, min: 0 }) # init
 
 # query page
 m = Mechanize.new { |a| a.ssl_version, a.verify_mode = 'SSLv3', OpenSSL::SSL::VERIFY_NONE }
@@ -51,7 +51,7 @@ SCHEDULER.every '15s', first_in: 0 do
     
     # send updates to board
     send_event('coffee', { points: points, coffee_status: is_cooking ? 'filling' : 'unknown', elast_coffee: last_coffee_finished.to_s });
-    send_event('coffee-text', { value: 0, text: coffee_brewing_finished_text }) if previous_is_cooking && !is_cooking
+    send_event('coffee-text', { value: 0, text: coffee_brewing_finished_text, max: 100, min: 0 }) if previous_is_cooking && !is_cooking
 
     # update plot
     last_x += 1
@@ -85,6 +85,5 @@ SCHEDULER.every '1s' do
     min = (time_left / 60).floor
     sec = time_left - min * 60 
     send_event('coffee-text', { value: "#{str_pad_left(min,"0",2)}:#{str_pad_left(sec,"0",2)}", text: coffee_start_text, max: avg_brewing_duration, min: 0 }) unless time_left < 0
-    p "#{str_pad_left(min,"0",2)}:#{str_pad_left(sec,"0",2)}"
   end
 end
