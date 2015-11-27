@@ -21,7 +21,7 @@ end
 # main
 config.each do |handle, url|
   SCHEDULER.every '10m', first_in: 0 do
-    site = Nokogiri::HTML(open(url))
+    site = Nokogiri::HTML(open(url, :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE))
     
     today = Date.today
     tomorrow = today + 1
