@@ -30,7 +30,7 @@ SCHEDULER.every '10m', first_in: 0 do
       current_day[:items] << current_dish 
       current_dish = { label: "" }
     else
-      line[0] = line[0].chr.downcase if !line.empty? && !current_dish[:label].strip.empty? && line =~ /^Mit|Dazu|Und/
+      line[0] = line[0].chr.downcase if !line.empty? && !current_dish[:label].strip.empty? && line =~ /^Mit|Dazu|Und|In/
       current_dish[:label] += " #{line}"
     end
 
