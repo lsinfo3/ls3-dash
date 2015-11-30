@@ -1,11 +1,4 @@
 <% content_for :title do %>Gallery<% end %>
-<script type='text/javascript'>
-$(function() {
-  // These settings override the defaults set in application.coffee. You can do this on a per dashboard basis.
-  Dashing.widget_base_dimensions = [350, 360]
-  Dashing.numColumns = 6
-});
-</script>
 <script>
 $(document).ready(function(){
 	setTimeout(function(){
@@ -15,7 +8,7 @@ $(document).ready(function(){
 </script>
 <div class="gridster">
   <ul>
-   <li data-row="1" data-col="1" data-sizex="6" data-sizey="3">
+   <li data-row="1" data-col="1" data-sizex="4" data-sizey="3">
       <div data-id="tumblr" data-view="BigImage" data-image="" style="background-color:#632F00;" data-max="true" data-text="" data-moreinfo=""></div>
       <i class="fa fa-picture-o icon-background"></i>
    </li>

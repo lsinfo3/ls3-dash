@@ -1,12 +1,4 @@
 <% content_for :title do %>LS3 Main Dashboard<% end %>
-<script type='text/javascript'>
-$(function() {
-  // These settings override the defaults set in application.coffee. You can do this on a per dashboard basis.
-  Dashing.widget_base_dimensions = [350, 360]
-  Dashing.numColumns = 6
-});
-</script>
-
 <script>
 $(document).ready(function(){
 	setTimeout(function(){
@@ -19,16 +11,7 @@ $(document).ready(function(){
     <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
       <div data-view="Image" data-image="/i3logo.svg"></div>
     </li>
-    <li data-row="3" data-col="4" data-sizex="1" data-sizey="1">
-      <div data-id="dota-Matthias" data-view="Number" data-title="Matthias" style="background-color:#96bf48;"></div>
-      <i class="fa fa-gamepad icon-background"></i>
-    </li>
 
-    <li data-row="2" data-col="4" data-sizex="1" data-sizey="1">
-      <div data-id="dota-Valentin" data-view="Number" data-title="Valentin" style="background-color:#96bf48;"></div>
-      <i class="fa fa-gamepad icon-background"></i>
-    </li>
- 
     <li data-row="3" data-col="1" data-sizex="1" data-sizey="1">
       <div data-view="Clock"></div>
       <i class="fa fa-clock-o icon-background"></i>
@@ -39,17 +22,17 @@ $(document).ready(function(){
       <i class="fa fa-calendar icon-background"></i>
     </li>
 
-    <li data-row="1" data-col="2" data-sizex="2" data-sizey="3">
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="3">
       <div data-id="vacations" data-view="Table" data-title="Absence Times"></div>
       <i class="fa fa-plane icon-background"></i>
     </li>
 
-    <li data-row="1" data-col="4" data-sizex="3" data-sizey="1">
+    <li data-row="1" data-col="3" data-sizex="2" data-sizey="1">
     	<div data-id="coffee-text" data-view="Meterright" data-text="Letzter Kaffee wurde um 17:47 gekocht." data-min="0" data-max="100" data-moreinfo="keep calm and make coffee" data-value=100></div>
       <i class="fa fa-coffee icon-background"></i>
     </li>
 
-  <li data-row="2" data-col="4" data-sizex="2" data-sizey="2">
+  <li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
     <div data-id="coffee" data-view="Coffee" data-title="Coffee" style="background-color:#47bbb3;"></div>
       <i class="fa fa-coffee icon-background"></i>
   </li>
