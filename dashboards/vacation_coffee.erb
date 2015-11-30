@@ -2,8 +2,8 @@
 <script type='text/javascript'>
 $(function() {
   // These settings override the defaults set in application.coffee. You can do this on a per dashboard basis.
-  Dashing.widget_base_dimensions = [350, 360]
-  Dashing.numColumns = 6
+  Dashing.widget_base_dimensions = [370, 360]
+  Dashing.numColumns = 7
 });
 </script>
 
@@ -53,6 +53,21 @@ $(document).ready(function(){
     <div data-id="coffee" data-view="Coffee" data-title="Coffee" style="background-color:#47bbb3;"></div>
       <i class="fa fa-coffee icon-background"></i>
   </li>
+
+    <li data-row="1" data-col="7" data-sizex="1" data-sizey="1">
+      <div data-view="Image" data-image="/i3logo.svg"></div>
+    </li>
+ 
+    <li data-row="3" data-col="7" data-sizex="1" data-sizey="1">
+      <div data-view="Clock"></div>
+      <i class="fa fa-clock-o icon-background"></i>
+    </li>
+
+    <li data-row="2" data-col="7" data-sizex="1" data-sizey="1">
+      <div data-id="days-till-friday" data-view="Text" data-title="X days" data-text="till Friday." data-moreinfo="" style="background-color:#FF981D;"></div>
+      <i class="fa fa-calendar icon-background"></i>
+    </li>
+
 
   </ul>
 </div>
