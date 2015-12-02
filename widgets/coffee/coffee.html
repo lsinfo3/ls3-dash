@@ -1,5 +1,5 @@
 <h1 class="title" data-bind="title"></h1>
 
-<h2 class="value" data-bind="current | prettyNumber | prepend prefix"></h2>
+<h3 class="value" data-bind="current | prettyNumber | prepend prefix | append ' Watt'"></h3>
 <img data-bind-src="coffee_status | prepend '/assets/coffee-' | append '.svg'">
 <p class="more-info">Last Coffee brewed at <span data-bind="last_coffee"></span></p>
