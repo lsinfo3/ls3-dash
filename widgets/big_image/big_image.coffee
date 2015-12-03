@@ -19,17 +19,17 @@ class Dashing.BigImage extends Dashing.Widget
 
     # Courtesy @mr-deamon
     resizeImage = ($img, maxWidth, maxHeight, maximize) ->
-        width = $img.width()
-        height = $img.height()
-        delta_x = width-maxWidth
-        delta_y = height-maxHeight
+        img_width = $img.width()
+        img_height = $img.height()
+        scale_factor = maxWidth/img_width
+        resulting_height = scale_factor * img_height
 
-        if height >= width
+        if resulting_height <= maxHeight
             $img.css
-               'height': maxHeight
+                'width': maxWidth
         else
             $img.css
-               'width': maxWidth
+                'height': maxHeight
 
     getImageSize = ($img, done) ->
         loadedHandler = ->
@@ -48,8 +48,12 @@ class Dashing.BigImage extends Dashing.Widget
 
     ready: ->
         container = $(@node).parent()
+        console.log Dashing.widget_margins[1]
         @maxWidth = (Dashing.widget_base_dimensions[0] * container.data("sizex")) + Dashing.widget_margins[0] * 2 * (container.data("sizex") - 1)
-        @maxHeight = ((Dashing.widget_base_dimensions[1] * container.data("sizey")) - 56)
+        heading_border = 30
+        font_size = 47
+        heading_height = 2 * heading_border + font_size
+        @maxHeight = ((Dashing.widget_base_dimensions[1] * container.data("sizey")) + Dashing.widget_margins[1] * 2 * (container.data("sizey") - 1)) - heading_height
         draw this
 
     onData: (data) ->
@@ -87,5 +91,5 @@ class Dashing.BigImage extends Dashing.Widget
 
         if needResize
             # Resize the image
-            getImageSize $img, (width, height) =>
+            getImageSize $img, (width, height) ->
                 resizeImage $img, self.maxWidth, self.maxHeight, self.get 'max'
