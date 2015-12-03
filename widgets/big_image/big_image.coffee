@@ -48,7 +48,6 @@ class Dashing.BigImage extends Dashing.Widget
 
     ready: ->
         container = $(@node).parent()
-        console.log Dashing.widget_margins[1]
         @maxWidth = (Dashing.widget_base_dimensions[0] * container.data("sizex")) + Dashing.widget_margins[0] * 2 * (container.data("sizex") - 1)
         heading_border = 30
         font_size = 47
