@@ -13,4 +13,4 @@ gem 'nokogiri'
 gem 'dota'
 gem 'net-http-oauth'
 
-gem 'pry'
+gem 'pry-byebug'
