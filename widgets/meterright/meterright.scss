@@ -43,6 +43,12 @@ $meterright-background:  darken($background-color, 15%);
     color: $moreinfo-color;
   }
 
+  .subcaption {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 25px;
+    font-weight: 600;
+  }
+
   .updated-at {
     color: rgba(0, 0, 0, 0.3);
   }

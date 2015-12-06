@@ -3,6 +3,8 @@ class Dashing.Meterright extends Dashing.Widget
   @accessor 'value', Dashing.AnimatedValue
   @accessor 'isActive', ->
     /[0-9]+:[0-9]+/.test(@get('value')) && !(@get('value') == '00:00' or @get('value') == 0 or @get('value') == 100)
+  @accessor 'isLow', ->
+    /00:0[0-9]/.test(@get('value')) && !(@get('value') == '00:00' or @get('value') == 0 or @get('value') == 100)
 
   constructor: ->
     super
