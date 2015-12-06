@@ -14,7 +14,7 @@ $meterright-background:  darken($background-color, 15%);
 .widget-meterright {
 
   background-color: $background-color;
-  
+
   input.meterright {
     background-color: $meterright-background;
     color: #fff;
@@ -47,4 +47,8 @@ $meterright-background:  darken($background-color, 15%);
     color: rgba(0, 0, 0, 0.3);
   }
 
+}
+
+.active {
+  background: red;
 }
