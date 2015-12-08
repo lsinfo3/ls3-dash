@@ -34,8 +34,19 @@ def days_of_vacation_next_week_for(vacation_events, name, type, start_week, end_
   end.select do |e|
     !(start_week > e.dtend.to_date || end_week < e.dtstart.to_date) && (e.categories.first== type)
   end.map do |e|
-    ([end_week, (e.dtend.to_date.to_time - 1.second).to_date].min - [start_week, e.dtstart.to_date].max).to_i + 1
-  end.sum
+    s = Date::DAYNAMES[[start_week, e.dtstart.to_date].max.wday][0..2]
+    e = Date::DAYNAMES[[end_week, (e.dtend.to_date.to_time - 1.second).to_date].min.wday][0..2]
+    r = ", #{s}-#{e}" if s != e
+    r = ", #{s}" if s==e
+    r
+  end.join
+#  vacation_events.select do |e|
+#    e.summary.to_s == name
+#  end.select do |e|
+#    !(start_week > e.dtend.to_date || end_week < e.dtstart.to_date) && (e.categories.first== type)
+#  end.map do |e|
+#    ([end_week, (e.dtend.to_date.to_time - 1.second).to_date].min - [start_week, e.dtstart.to_date].max).to_i + 1
+#  end.sum
 end
 
 SCHEDULER.every '1h', first_in: 0 do
@@ -71,7 +82,7 @@ SCHEDULER.every '1h', first_in: 0 do
   end
 
   vacations_next_week.each do |entry|
-    entry[:count] = days_of_vacation_next_week_for(vacations.events, entry[:label], entry[:type], next_monday, next_friday)
+    entry[:count] = days_of_vacation_next_week_for(vacations.events, entry[:label], entry[:type], next_monday, next_friday)[2..-1]
   end
 
   vacation_information = [
