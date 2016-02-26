@@ -4,17 +4,20 @@ require 'rest_client'
 require 'json'
 
 # settings
-url = 'http://whatsanalyzer.informatik.uni-wuerzburg.de/admin/dashboard'
+url = 'http://whatsanalyzer.informatik.uni-wuerzburg.de/admin/dashboard.jsp'
 
 # query page
 m = Mechanize.new { |a| a.ssl_version, a.verify_mode = 'SSLv3', OpenSSL::SSL::VERIFY_NONE }
-SCHEDULER.every '15s', first_in: 0 do
+m.add_auth(url, 'michi', '')
+SCHEDULER.every '1m', first_in: 0 do
   m.get(url) do |page|
     # get current chats
-    num_chats = page.content.search('.chatsTodayDiv').text.to_f
+    # puts page.at('head').text
+    num_chats = page.at('head').text.match(/numOfChatsToday = ([0-9]+);/i).captures
+    #puts num_chats
 
     # send updates to board
-    send_event('dota-Valentin', { current: num_chats, last: 0 })
+    send_event('whatsanalyzer', { current: num_chats, last: 0 })
   end
 end
 
