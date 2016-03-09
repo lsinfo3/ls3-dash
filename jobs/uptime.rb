@@ -1,4 +1,5 @@
 require 'pry'
+require 'time'
 
 SCHEDULER.every '10s', first_in: 0 do
 
@@ -13,5 +14,5 @@ SCHEDULER.every '10s', first_in: 0 do
     }
 
     send_event "uptime", results
-  end
+
 end
