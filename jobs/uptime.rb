@@ -13,7 +13,7 @@ SCHEDULER.every '10s', first_in: 0 do
     # post results
     results = {
       title: up_str,
-      text: 'till last AcCident.'
+      text: 'since the last server crash nightmare.'
     }
 
     send_event "uptime", results
