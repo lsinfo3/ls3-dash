@@ -6,16 +6,20 @@ require 'date'
 
 # settings
 url = 'https://whatsanalyzer.informatik.uni-wuerzburg.de/admin/dashboard.jsp'
+user = ENV['WHATSAPP_USER']
+pass = ENV['WHATSAPP_PASS']
+
+# init
 old_value = [0, 0, 0, 0, 0, 0, 0]
 
 # query page
 m = Mechanize.new { OpenSSL::SSL::VERIFY_NONE }
-m.add_auth(url, 'michi', '')
+m.add_auth(url, user, pass)
 SCHEDULER.every '30m', first_in: 0 do
   m.get(url) do |page|
     # get current chats
     # puts page.at('head').text
-    #num_chats = page.at('head').text.match(/numOfChatsToday = ([0-9]+);/i).captures
+    # num_chats_today = page.at('head').text.match(/numOfChatsToday = ([0-9]+);/i).captures
     num_chats = page.at('body').text.match(/Insgesamt gesammelte Chats: ([0-9]+)/i).captures
     #puts num_chats
     old_value[DateTime.now.wday] = num_chats
