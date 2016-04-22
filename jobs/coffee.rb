@@ -62,7 +62,7 @@ end
 
 def get_avg_brewing_duration
   elastic_url = 'http://132.187.12.139:9200/logstash-*/_search'
-  q = '{ "query": { "filtered": { "query": {"query_string": { "analyze_wildcard": true, "query": "_type:\"coffee log file\" AND log_event:\"Kaffee fertig!\" -time_left:[* TO 200]" } } } },"size": 0, "aggs": { "1": { "avg": { "field": "time_left" } } } }'
+  q = '{ "query": { "filtered": { "query": {"query_string": { "analyze_wildcard": true, "query": "fields.type:\"coffee log file\" AND log_event:\"Kaffee fertig!\" -time_left:[* TO 200]" } } } },"size": 0, "aggs": { "1": { "avg": { "field": "time_left" } } } }'
   begin
   	r = JSON.parse RestClient.get(elastic_url, params: { source: q })
 	r['aggregations']['1']['value']
