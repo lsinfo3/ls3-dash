@@ -70,15 +70,20 @@ SCHEDULER.every '1h', first_in: 0 do
   next_monday = today.next_day(7 - ((today.wday - 1) % 7))
   next_friday = next_monday.next_day(4)
   next_week = (next_monday..next_friday)
+  this_week = (tomorrow..(next_monday -1))
 
   vacations_today = []
-  vacations_tomorrow = []
+  vacations_this_week = []
   vacations_next_week = []
 
   vacations.events.each do |event|
     vacations_today << { label: event.summary.to_s, icon: icon_for_event(event), type: event.categories.first } if vacation_includes_date? event, today
-    vacations_tomorrow << { label: event.summary.to_s, icon: icon_for_event(event), type: event.categories.first } if vacation_includes_date? event, tomorrow
+    vacations_this_week << { label: event.summary.to_s, icon: icon_for_event(event), type: event.categories.first } if this_week.any? { |date| vacation_includes_date? event, date }
     vacations_next_week << { label: event.summary.to_s, icon: icon_for_event(event), type: event.categories.first } if next_week.any? { |date| vacation_includes_date? event, date }
+  end
+
+  vacations_this_week.each do |entry|
+    entry[:count] = days_of_vacation_this_week_for(vacations.events, entry[:label], entry[:type], tomorrow, (next_sunday -1))[2..-1]
   end
 
   vacations_next_week.each do |entry|
@@ -87,7 +92,7 @@ SCHEDULER.every '1h', first_in: 0 do
 
   vacation_information = [
     { label: 'Today', items: vacations_today.sort_by { |e| e[:label] }.uniq },
-    { label: 'Tomorrow', items: vacations_tomorrow.sort_by { |e| e[:label] }.uniq },
+    { label: 'This week', items: vacations_this_week.sort_by { |e| e[:label] }.uniq },
     { label: 'Next Week', items: vacations_next_week.sort_by { |e| e[:label] }.uniq }
   ]
 
