@@ -28,7 +28,7 @@ def vacation_includes_date?(vacation_event, date)
   regular_event_occurs || repeated_event_occurs
 end
 
-def days_of_vacation_next_week_for(vacation_events, name, type, start_week, end_week)
+def days_of_vacation_for(vacation_events, name, type, start_week, end_week)
   vacation_events.select do |e|
     e.summary.to_s == name
   end.select do |e|
@@ -68,8 +68,8 @@ SCHEDULER.every '1h', first_in: 0 do
   today = Date.today
   tomorrow = today + 1
   next_monday = today.next_day(7 - ((today.wday - 1) % 7))
-  next_friday = next_monday.next_day(4)
-  next_week = (next_monday..next_friday)
+  next_sunday = next_monday.next_day(6)
+  next_week = (next_monday..next_sunday)
   this_week = (tomorrow..(next_monday -1))
 
   vacations_today = []
@@ -83,11 +83,11 @@ SCHEDULER.every '1h', first_in: 0 do
   end
 
   vacations_this_week.each do |entry|
-    entry[:count] = days_of_vacation_this_week_for(vacations.events, entry[:label], entry[:type], tomorrow, (next_monday -1))[2..-1]
+    entry[:count] = days_of_vacation_for(vacations.events, entry[:label], entry[:type], tomorrow, (next_monday -1))[2..-1]
   end
 
   vacations_next_week.each do |entry|
-    entry[:count] = days_of_vacation_next_week_for(vacations.events, entry[:label], entry[:type], next_monday, next_friday)[2..-1]
+    entry[:count] = days_of_vacation_for(vacations.events, entry[:label], entry[:type], next_monday, next_sunday)[2..-1]
   end
 
   vacation_information = [
