@@ -83,7 +83,7 @@ SCHEDULER.every '1h', first_in: 0 do
   end
 
   vacations_this_week.each do |entry|
-    entry[:count] = days_of_vacation_this_week_for(vacations.events, entry[:label], entry[:type], tomorrow, (next_sunday -1))[2..-1]
+    entry[:count] = days_of_vacation_this_week_for(vacations.events, entry[:label], entry[:type], tomorrow, (next_monday -1))[2..-1]
   end
 
   vacations_next_week.each do |entry|
