@@ -92,7 +92,7 @@ SCHEDULER.every '1h', first_in: 0 do
 
   vacation_information = [
     { label: 'Today', items: vacations_today.sort_by { |e| e[:label] }.uniq },
-    { label: 'This week', items: vacations_this_week.sort_by { |e| e[:label] }.uniq },
+    { label: 'This Week', items: vacations_this_week.sort_by { |e| e[:label] }.uniq },
     { label: 'Next Week', items: vacations_next_week.sort_by { |e| e[:label] }.uniq }
   ]
 
