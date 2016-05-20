@@ -70,7 +70,7 @@ SCHEDULER.every '1h', first_in: 0 do
   next_monday = today.next_day(7 - ((today.wday - 1) % 7))
   next_sunday = next_monday.next_day(6)
   next_week = (next_monday..next_sunday)
-  this_week = (tomorrow..(next_monday -1))
+  this_week = (today..(next_monday -1))
 
   vacations_today = []
   vacations_this_week = []
@@ -83,7 +83,7 @@ SCHEDULER.every '1h', first_in: 0 do
   end
 
   vacations_this_week.each do |entry|
-    entry[:count] = days_of_vacation_for(vacations.events, entry[:label], entry[:type], tomorrow, (next_monday -1))[2..-1]
+    entry[:count] = days_of_vacation_for(vacations.events, entry[:label], entry[:type], today, (next_monday -1))[2..-1]
   end
 
   vacations_next_week.each do |entry|
