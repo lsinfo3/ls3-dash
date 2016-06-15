@@ -12,5 +12,6 @@ gem 'yomu'
 gem 'nokogiri'
 gem 'dota'
 gem 'net-http-oauth'
+gem 'mysql2'
 
 gem 'pry-byebug'

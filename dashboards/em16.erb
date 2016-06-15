@@ -1,0 +1,37 @@
+<% content_for :title do %>EM Bets<% end %>
+<script type='text/javascript'>
+$(function() {
+  // These settings override the defaults set in application.coffee. You can do this on a per dashboard basis.
+  Dashing.widget_base_dimensions = [350, 350]
+  Dashing.numColumns = 6
+});
+</script>
+<script>
+$(document).ready(function(){
+    setTimeout(function(){
+        $(".icon-background").animate({opacity: 0},10000);
+    },10000);
+});
+</script>
+<div class="gridster">
+  <ul>
+   <li data-row="1" data-col="1" data-sizex="1" data-sizey="3">
+      <div data-id="ranking-top10" data-view="Table" data-title="Ranking" style="background-color:#00356a;"></div>
+      <i class="fa fa-plane icon-background"></i>
+   </li>
+
+   <li data-row="1" data-col="2" data-sizex="1" data-sizey="3">
+      
+      <div data-id="ranking-exakt" data-view="Table" data-title="" style="background-color:#fff; color:#777; .list-nostyle.color: #f00"></div>
+      <i class="fa fa-plane icon-background"></i>
+   </li>
+
+   <li data-row="1" data-col="3" data-sizex="1" data-sizey="3">
+      <div data-id="ranking-trend" data-view="Table" data-title="" style="background-color:#f00;"></div>
+      <i class="fa fa-plane icon-background"></i>
+   </li>
+
+
+
+  </ul>
+</div>
