@@ -6,6 +6,7 @@
   <li data-foreach-item="toplevel.items">
     <i data-insertif="item.icon" data-bind-class="item.icon | prepend 'fa fa-fw fa-'"></i>
     <span class="label" data-bind="item.label"></span>
+    <span data-insertif="item.mid" class="middle-text" data-bind="item.mid"></span>
     <span class="count" data-insertif="item.count" data-bind="item.count"></span>
   </li>
   <li data-hideif="toplevel.items[0].label"><div class="no_items">&mdash;</div></li>
