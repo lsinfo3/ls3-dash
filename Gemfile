@@ -13,5 +13,6 @@ gem 'nokogiri'
 gem 'dota'
 gem 'net-http-oauth'
 gem 'mysql2'
+gem 'htmlentities'
 
 gem 'pry-byebug'
