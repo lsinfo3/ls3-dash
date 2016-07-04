@@ -4,6 +4,7 @@ require 'net/http/oauth'
 require 'open-uri'
 require 'nokogiri'
 require 'json'
+require 'cgi'
 
 tumblrUri = 'ls3photos.tumblr.com' # the URL of the blog on Tumblr, ex: inspire.niptech.com
 oauth_consumer_key =    '0JqbvujVVKwRbyO9F2snB7JqVXk8Yzt1VT0vfdw6mC2pbC0Znz'
@@ -69,11 +70,11 @@ SCHEDULER.every '3m', first_in: 0 do |_job|
         p media_type
         if (media_type == 'video')
           p data['response']['posts'][0]['caption'].gsub(/<\/?[^>]+>/, '')
-          send_event('tumblr', text: data['response']['posts'][0]['caption'].gsub(/<\/?[^>]+>/, ''), image: data['response']['posts'][0]['video_url'], moreinfo: tumblrUri)
+          send_event('tumblr', text: CGI.unescapeHTML(data['response']['posts'][0]['caption']).gsub(/<\/?[^>]+>/, ''), image: data['response']['posts'][0]['video_url'], moreinfo: tumblrUri)
         elsif (media_type == "photo")
           p data['response']['posts'][0]['caption'].gsub(/<\/?[^>]+>/, '')
           p data['response']['posts'][0]['photos'][0]['alt_sizes'][1]['url']
-          send_event('tumblr', text: data['response']['posts'][0]['caption'].gsub(/<\/?[^>]+>/, ''), image: data['response']['posts'][0]['photos'][0]['alt_sizes'][0]['url'], moreinfo: tumblrUri)
+          send_event('tumblr', text: CGI.unescapeHTML(data['response']['posts'][0]['caption']).gsub(/<\/?[^>]+>/, ''), image: data['response']['posts'][0]['photos'][0]['alt_sizes'][0]['url'], moreinfo: tumblrUri)
 	else 
 	   p "media type not supported: #{media_type}"	
         end
