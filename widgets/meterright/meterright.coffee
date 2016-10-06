@@ -12,7 +12,7 @@ class Dashing.Meterright extends Dashing.Widget
 
         @observe 'value', (value) ->
             $(@node).find(".meterright").val(value).trigger('change')
-            if (value == 0 or value == "00:00" or value == 100) and paused
+            if (value == '00:00' or value == 0 or value == 100) and paused
                 $('#dc-switcher-pause-reset').click()
                 paused = false
             else if /[0-9]+:[0-9]+/.test(value) and not paused
@@ -20,7 +20,7 @@ class Dashing.Meterright extends Dashing.Widget
                 paused = true
 
         @observe 'text', (value) ->
-            if (value == "Kaffee fertig!") 
+            if (value == "Kaffee fertig!")
                 document.getElementById('coffee-sound').play()
             else
                 document.getElementById('coffee-sound').pause()
