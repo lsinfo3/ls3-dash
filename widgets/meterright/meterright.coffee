@@ -13,7 +13,7 @@ class Dashing.Meterright extends Dashing.Widget
 
         @observe 'value', (value) ->
             $(@node).find(".meterright").val(value).trigger('change')
-            if (value == '00:00' or value == 0 or value == 100) and paused
+            if (value == 100) and paused
                 if (not skip_first_dashing)
                     document.getElementById('coffee-sound').play()
                 else
