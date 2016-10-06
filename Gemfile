@@ -16,3 +16,5 @@ gem 'mysql2'
 gem 'htmlentities'
 
 gem 'pry-byebug'
+
+gem 'net-ping'
