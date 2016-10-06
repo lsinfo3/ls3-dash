@@ -21,9 +21,14 @@ class Dashing.Meterright extends Dashing.Widget
 
         @observe 'text', (value) ->
             if (value == "Kaffee fertig!")
-                document.getElementById('coffee-sound').play()
+                audio = document.createElement("audio")
+                audio.src = "coffee.wav"
+                audio.id = "coffee-sound"
+                document.body.appendChild(audio)
+                audio.play()
             else
                 document.getElementById('coffee-sound').pause()
+                $( "audio" ).remove()
 
 
     ready: ->
