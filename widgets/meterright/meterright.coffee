@@ -9,20 +9,22 @@ class Dashing.Meterright extends Dashing.Widget
     constructor: ->
         super
         paused = false
-        skip_first_dashing = true
 
         @observe 'value', (value) ->
             $(@node).find(".meterright").val(value).trigger('change')
-            if (value == 100) and paused
-                if (not skip_first_dashing)
-                    document.getElementById('coffee-sound').play()
-                else
-                    skip_first_dashing = false
+            if (value == 0 or value == "00:00" or value == 100) and paused
                 $('#dc-switcher-pause-reset').click()
                 paused = false
             else if /[0-9]+:[0-9]+/.test(value) and not paused
                 $('#dc-switcher-pause-reset').click()
                 paused = true
+
+        @observe 'text', (value) ->
+            if (value == "Kaffee fertig!") 
+                document.getElementById('coffee-sound').play()
+            else
+                document.getElementById('coffee-sound').pause()
+
 
     ready: ->
         meterright = $(@node).find(".meterright")
