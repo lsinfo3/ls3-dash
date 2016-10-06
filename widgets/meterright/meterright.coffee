@@ -19,27 +19,25 @@ class Dashing.Meterright extends Dashing.Widget
             else if /[0-9]+:[0-9]+/.test(value) and not paused
                 $('#dc-switcher-pause-reset').click()
                 paused = true
+                @set('played',false)
 
         @observe 'text', (value) ->
             if (value == "Kaffee fertig!")
-                if (not playback_done)
+                if (not @get('played'))
                     # create, embed audio tag and play
                     audio = document.createElement("audio")
                     audio.src = "coffee.wav"
                     audio.id = "coffee-sound"
                     audio.onended = ->
-                        console.log "remove"
                         $( "audio" ).remove()
-                        console.log "removed"
                         return
                     document.body.appendChild(audio)
                     audio.play()
-                    playback_done = true
-                    console.log "end dynamic play start"
+                    @set('played',true)
             else
                 document.getElementById('coffee-sound') && document.getElementById('coffee-sound').pause()
                 $( "audio" ).remove()
-                playback_done = false
+                @set('played',false)
 
 
     ready: ->
