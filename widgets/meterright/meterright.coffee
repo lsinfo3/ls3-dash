@@ -9,6 +9,7 @@ class Dashing.Meterright extends Dashing.Widget
     constructor: ->
         super
         paused = false
+        playback_done = false
 
         @observe 'value', (value) ->
             $(@node).find(".meterright").val(value).trigger('change')
@@ -21,14 +22,24 @@ class Dashing.Meterright extends Dashing.Widget
 
         @observe 'text', (value) ->
             if (value == "Kaffee fertig!")
-                audio = document.createElement("audio")
-                audio.src = "coffee.wav"
-                audio.id = "coffee-sound"
-                document.body.appendChild(audio)
-                audio.play()
+                if (not playback_done)
+                    # create, embed audio tag and play
+                    audio = document.createElement("audio")
+                    audio.src = "coffee.wav"
+                    audio.id = "coffee-sound"
+                    audio.onended = ->
+                        console.log "remove"
+                        $( "audio" ).remove()
+                        console.log "removed"
+                        return
+                    document.body.appendChild(audio)
+                    audio.play()
+                    playback_done = true
+                    console.log "end dynamic play start"
             else
                 document.getElementById('coffee-sound') && document.getElementById('coffee-sound').pause()
                 $( "audio" ).remove()
+                playback_done = false
 
 
     ready: ->
