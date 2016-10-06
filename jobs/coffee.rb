@@ -48,7 +48,7 @@ SCHEDULER.every '15s', first_in: 0 do
     # parse possible events (brewing started/finished)
     last_coffee_finished = DateTime.now if previous_is_cooking && !is_cooking
     last_coffee_start = DateTime.now if is_cooking && !previous_is_cooking
-    
+
     # send updates to board
     send_event('coffee', { points: points, coffee_status: is_cooking ? 'filling' : 'unknown', elast_coffee: last_coffee_finished.to_s });
     send_event('coffee-text', { value: 100, text: coffee_brewing_finished_text, max: 100, min: 0 }) if previous_is_cooking && !is_cooking
