@@ -51,7 +51,7 @@ SCHEDULER.every '15s', first_in: 0 do
 
     # send updates to board
     send_event('coffee', { points: points, coffee_status: is_cooking ? 'filling' : 'unknown', elast_coffee: last_coffee_finished.to_s });
-    send_event('coffee-text', { value: 100, text: coffee_brewing_finished_text, max: 100, min: 0 }) if previous_is_cooking && !is_cooking
+    send_event('coffee-text', { value: 100, text: coffee_brewing_finished_text, max: 100, min: 0 }) if !is_cooking
 
     # update plot
     last_x += 1
