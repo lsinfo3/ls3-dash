@@ -27,7 +27,7 @@ class Dashing.Meterright extends Dashing.Widget
                 document.body.appendChild(audio)
                 audio.play()
             else
-                document.getElementById('coffee-sound').pause()
+                document.getElementById('coffee-sound') && document.getElementById('coffee-sound').pause()
                 $( "audio" ).remove()
 
 
