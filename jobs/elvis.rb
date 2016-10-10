@@ -2,7 +2,8 @@
 require 'net/ping'
 
 def up?(host)
-    check = Net::Ping::External.new(host)
+    Net::Ping::TCP.service_check = true
+    check = Net::Ping::TCP.new(host)
     check.ping?
 end
 
