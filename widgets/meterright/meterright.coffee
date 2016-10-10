@@ -38,7 +38,8 @@ class Dashing.Meterright extends Dashing.Widget
         @observe 'value', (value) ->
             $(@node).find(".meterright").val(value).trigger('change')
             if (value == '00:00' or value == 0 or value == 100) and paused
-                $('#dc-switcher-pause-reset').click()
+                ditcher = new (Dashing.DashboardSwitcher)
+                ditcher.start 30000
                 paused = false
             else if /[0-9]+:[0-9]+/.test(value) and not paused
                 $('#dc-switcher-pause-reset').click()
