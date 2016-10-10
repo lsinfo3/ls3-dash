@@ -42,8 +42,8 @@ class Dashing.Meterright extends Dashing.Widget
                 ditcher.start 30000
                 paused = false
             else if /[0-9]+:[0-9]+/.test(value) and not paused
-                $.each $('#dc-switcher-pause-reset'), (i, l) ->
-                    l.click()
+                $('[id=dc-switcher-pause-reset]').each (index, value) ->
+                    $(this).hasClass('fa-pause') and $(this).click()
                     return
                 paused = true
 
