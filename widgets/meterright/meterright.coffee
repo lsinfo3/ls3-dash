@@ -34,6 +34,10 @@ class Dashing.Meterright extends Dashing.Widget
         deleteCookie = (name) ->
           setCookie name, "", -1
         # end cookies
+        
+        # Returns a random integer between min (inclusive) and max (inclusive)
+        getRandomInt = (min, max) ->
+          Math.floor(Math.random() * (max - min + 1)) + min
 
         @observe 'value', (value) ->
             $(@node).find(".meterright").val(value).trigger('change')
@@ -52,7 +56,7 @@ class Dashing.Meterright extends Dashing.Widget
                 if (not getCookie("ls3-dash_played"))
                     # create, embed audio tag and play
                     audio = document.createElement("audio")
-                    audio.src = "coffee.wav"
+                    audio.src = 'coffee' + getRandomInt(1,3) + '.wav'
                     audio.id = "coffee-sound"
                     audio.onended = ->
                         $( "audio" ).remove()
