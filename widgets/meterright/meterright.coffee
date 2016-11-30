@@ -42,8 +42,9 @@ class Dashing.Meterright extends Dashing.Widget
         @observe 'value', (value) ->
             $(@node).find(".meterright").val(value).trigger('change')
             if (value == '00:00' or value == 0 or value == 100) and paused and ($("#coffee-sound").length==0)
+                # set timeout for security if "Coffee finished" is missing
                 ditcher = new (Dashing.DashboardSwitcher)
-                ditcher.start 30000
+                ditcher.start 600000
                 paused = false
             else if /[0-9]+:[0-9]+/.test(value) and not paused
                 $('[id=dc-switcher-pause-reset]').each (index, value) ->
@@ -64,6 +65,8 @@ class Dashing.Meterright extends Dashing.Widget
                     document.body.appendChild(audio)
                     audio.play()
                     setCookie("ls3-dash_played",true,1)
+                    ditcher = new (Dashing.DashboardSwitcher)
+                    ditcher.start 30000
             else
                 document.getElementById('coffee-sound') && document.getElementById('coffee-sound').pause()
                 $( "audio" ).remove()
