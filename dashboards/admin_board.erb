@@ -1,0 +1,47 @@
+<% content_for :title do %>Nerd Geek Zone<% end %>
+        <script type='text/javascript'>
+            $(function() {
+                // These settings override the defaults set in application.coffee. You can do this on a per dashboard basis.
+                Dashing.widget_base_dimensions = [350, 350]
+                Dashing.numColumns = 6
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $(".icon-background").animate({
+                        opacity: 0
+                    }, 10000);
+                }, 10000);
+            });
+        </script>
+        <div class="gridster">
+            <ul>
+                <li data-row="1" data-col="5" data-sizex="2" data-sizey="3">
+                    <div data-id="chef-status" data-view="Table" style="background-color:#00356a; font-size: 25px"></div>
+                    <i class="fa fa-plane icon-background"></i>
+                </li>
+
+                <li data-row="1" data-col="1" data-sizex="3" data-sizey="1">
+                    <div data-id="games" data-view="Table" data-title="Server Messages and Errors" style="background-color:#1b6eae;"></div>
+                    <i class="fa fa-plane icon-background"></i>
+                </li>
+
+   
+    <li data-row="1" data-col="4" data-sizex="1" data-sizey="1">
+      <div data-id="numbers_high" data-view="ZabbixStatus" data-title="high" class="widget-zabbix"></div>
+    </li>
+    <li data-row="2" data-col="4" data-sizex="1" data-sizey="1">
+      <div data-id="numbers_average" data-view="ZabbixStatus" data-title="average" class="widget-zabbix"></div>
+    </li>
+    <li data-row="3" data-col="4" data-sizex="1" data-sizey="1">
+      <div data-id="numbers_warning" data-view="ZabbixStatus" data-title="warning" class="widget-zabbix"></div>
+    </li>
+
+    <li data-switcher-interval=10000 data-row="2" data-col="1" data-sizex="3" data-sizey="2">
+      <div data-id="zabbix_info" data-view="ZabbixInfo"></div>
+      <div data-id="trigger_list" data-view="ZabbixTriggers" data-title="Triggers"></div>
+    </li>
+
+            </ul>
+        </div>

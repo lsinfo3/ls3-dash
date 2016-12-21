@@ -14,6 +14,7 @@ gem 'dota'
 gem 'net-http-oauth'
 gem 'mysql2'
 gem 'htmlentities'
+gem 'zabby'
 
 gem 'pry-byebug'
 
