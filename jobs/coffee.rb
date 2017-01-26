@@ -26,7 +26,7 @@ is_cooking = false
 avg_brewing_duration = nil 
 
 # send default value to dashboard
-send_event('coffee-text', { value: 100, text: "Der letzte Kaffee ist von 7.42 Uhr.", max: 100, min: 0 }) # init
+send_event('coffee-text', { value: 100, text: "Der letzte Kaffee ist von 17:24 Uhr.", max: 100, min: 0 }) # init
 
 # query page
 m = Mechanize.new { |a| a.ssl_version, a.verify_mode = 'SSLv3', OpenSSL::SSL::VERIFY_NONE }
