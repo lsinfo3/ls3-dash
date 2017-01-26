@@ -8,7 +8,7 @@ SCHEDULER.every '10s', first_in: 0 do
     days = uptime / (60 * 60 * 24)
     hours = (uptime / (60 * 60)) % 24
     minutes = (uptime / 60) % 60
-    up_str = format("%d days, %d hours, %d mins", days, hours, minutes)
+    up_str = format("%d days, %d hours", days, hours)
 
     # post results
     results = {
