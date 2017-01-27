@@ -63,7 +63,7 @@ SCHEDULER.every '1h', first_in: 0 do
     http.request(req)
   end
 
-  vacations = Icalendar.parse(response.body.force_encoding('UTF-8')).first
+  vacations = Icalendar::Calendar.parse(response.body.force_encoding('UTF-8')).first
 
   today = Date.today
   tomorrow = today + 1

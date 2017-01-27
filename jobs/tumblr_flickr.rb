@@ -42,13 +42,13 @@ SCHEDULER.every '3m', first_in: 0 do |_job|
     end_pics = [all_photos, 10].min
     if (Random.rand(0..1) <= 0.1)
       randomNum = 0
-      p "-> Newest picture"
+      #p "-> Newest picture"
     elsif (Random.rand(0..1) <= 0.8)
       randomNum = Random.rand(1..(end_pics - 1))
-      p "-> One of the 10 newest pictures"
+      #p "-> One of the 10 newest pictures"
     else
       randomNum = Random.rand(end_pics..(all_photos - 1))
-      p "-> Random picture"
+      #p "-> Random picture"
     end
 
     if (randomNum <= (tum_photos - 1))
@@ -67,16 +67,16 @@ SCHEDULER.every '3m', first_in: 0 do |_job|
       if Net::HTTPSuccess
         data = JSON.parse(response.body)
         media_type = data['response']['posts'][0]['type']
-        p media_type
+        #p media_type
         if (media_type == 'video')
-          p data['response']['posts'][0]['caption'].gsub(/<\/?[^>]+>/, '')
+          #p data['response']['posts'][0]['caption'].gsub(/<\/?[^>]+>/, '')
           send_event('tumblr', text: HTMLEntities.new.decode(data['response']['posts'][0]['caption']).gsub(/<\/?[^>]+>/, ''), image: data['response']['posts'][0]['video_url'], moreinfo: tumblrUri)
         elsif (media_type == "photo")
-          p data['response']['posts'][0]['caption'].gsub(/<\/?[^>]+>/, '')
-          p data['response']['posts'][0]['photos'][0]['alt_sizes'][1]['url']
+          #p data['response']['posts'][0]['caption'].gsub(/<\/?[^>]+>/, '')
+          #p data['response']['posts'][0]['photos'][0]['alt_sizes'][1]['url']
           send_event('tumblr', text: HTMLEntities.new.decode(data['response']['posts'][0]['caption']).gsub(/<\/?[^>]+>/, ''), image: data['response']['posts'][0]['photos'][0]['alt_sizes'][0]['url'], moreinfo: tumblrUri)
 	else 
-	   p "media type not supported: #{media_type}"	
+	   #p "media type not supported: #{media_type}"	
         end
       end
     else

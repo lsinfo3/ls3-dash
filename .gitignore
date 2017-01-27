@@ -2,3 +2,4 @@
 history.yml
 run.sh
 Gemfile.lock
+zabbix_credentials.rb
