@@ -1,7 +1,22 @@
+<div id="header1">
 <h1 class="header" data-bind="'xkcd #' | append num | append ': ' | append title"></h1>
+</div>
+<script type="text/javascript">
+height_header = $("#header1").height();
+height_bottom = $("#bottom1").height();
+height_window = $(window).height();
+height_pic = height_window-height_header-height_bottom;
+schlonzfactor = 20;
+height_pic = height_pic - schlonzfactor;
+heightstr = height_pic+"px";
+$("#pic1").css({"height": heightstr});
+</script>
 
-<img class="xkcd-image" data-bind-src="img"/>
+
+<img id="pic1" class="xkcd-image" data-bind-src="img"/>
+<div id="bottom1">
 <p class="date" data-bind="'Published: ' | append datestr"></p>
 <p class="caption" data-bind="alt"></p>
 
 <p class="updated-at" data-bind="updatedAtMessage"></p>
+</div>
