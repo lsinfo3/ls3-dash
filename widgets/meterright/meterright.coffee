@@ -57,8 +57,7 @@ class Dashing.Meterright extends Dashing.Widget
                 if (not getCookie("ls3-dash_played"))
                     # create, embed audio tag and play
                     audio = document.createElement("audio")
-                    # audio.src = 'coffee' + getRandomInt(1,11) + '.wav'
-                    audio.src = 'coffee11.wav'
+                    audio.src = 'coffee' + getRandomInt(1,11) + '.wav'
                     audio.id = "coffee-sound"
                     audio.onended = ->
                         $( "audio" ).remove()
