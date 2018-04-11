@@ -61,7 +61,7 @@ class Dashing.BigImage extends Dashing.Widget
 
     makeVideo = (url, type) ->
         return $('
-            <video preload="auto" autoplay="autoplay" muted="muted" loop="loop" webkit-playsinline>
+            <video preload="auto" autoplay="autoplay" loop="loop" webkit-playsinline>
                 <source src="' + url + '" type="' + type + '">
             </video>
         ')
