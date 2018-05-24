@@ -2,7 +2,8 @@ require 'nokogiri'
 require 'open-uri'
 require 'date'
 
-config = { 'mensateria' => 'http://www.studentenwerk-wuerzburg.de/wuerzburg/essen-trinken/speiseplaene.html?tx_thmensamenu_pi2%5Bmensen%5D=54&tx_thmensamenu_pi2%5Baction%5D=show&tx_thmensamenu_pi2%5Bcontroller%5D=Speiseplan&cHash=c17db9c6513c97243f2ff16086a7d191', 'mensahubland' => 'https://www.studentenwerk-wuerzburg.de/wuerzburg/essen-trinken/speiseplaene.html?tx_thmensamenu_pi2[mensen]=7&tx_thmensamenu_pi2[action]=show&tx_thmensamenu_pi2[controller]=Speiseplan&cHash=efe40abc8afe9bcac3abf914dff9d943' }
+config = { 'mensateria' => 'https://www.studentenwerk-wuerzburg.de/wuerzburg/essen-trinken/speiseplaene.html?tx_thmensamenu_pi2%5Bmensen%5D=54&tx_thmensamenu_pi2%5Baction%5D=show&tx_thmensamenu_pi2%5Bcontroller%5D=Speiseplan&cHash=c17db9c6513c97243f2ff16086a7d191' }
+#, 'mensahubland' => 'https://www.studentenwerk-wuerzburg.de/wuerzburg/essen-trinken/speiseplaene.html?tx_thmensamenu_pi2[mensen]=7&tx_thmensamenu_pi2[action]=show&tx_thmensamenu_pi2[controller]=Speiseplan&cHash=efe40abc8afe9bcac3abf914dff9d943' }
 
 def format_date(date)
   date.strftime '%d.%m.'
