@@ -4,7 +4,7 @@ require 'yomu'
 require 'date'
 
 SCHEDULER.every '10m', first_in: 0 do
-  site = Nokogiri::HTML(open('http://www.metzgerei-dees.de/'))
+  site = Nokogiri::HTML(open('https://www.metzgerei-dees.de/'))
   menu_plan_url = site.css('#menu-main-nav li:last a').last.attr('href')
   next if !menu_plan_url.downcase.end_with? "xps"
 
