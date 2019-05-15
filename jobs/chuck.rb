@@ -21,9 +21,11 @@ SCHEDULER.every '160s', :first_in => 0 do |job|
     random_member = teammembers.sample
     firstName = random_member[0]
     lastName = random_member[1]
+    firstName_url = CGI.escape(random_member[0])
+    lastName_url = CGI.escape(random_member[1])
 
     #The uri to call, swapping in the team members name
-    uri = URI("#{server}/jokes/random?firstName=#{firstName}&lastName=#{lastName}&limitTo=[nerdy]")
+    uri = URI("#{server}/jokes/random?firstName=#{firstName_url}&lastName=#{lastName_url}&limitTo=[nerdy]")
 
     #This is for when there is no proxy
     res = Net::HTTP.get(uri)
