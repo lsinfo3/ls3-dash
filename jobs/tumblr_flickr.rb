@@ -34,8 +34,8 @@ SCHEDULER.every '3m', first_in: 0 do |_job|
     data = JSON.parse(response.body)
     tum_photos = data['response']['blog']['posts'].to_i
     # append flickr urls at the end
-    photos = flickr_urls('public', flickrID)
-    flick_photos = photos.count
+    # photos = flickr_urls('public', flickrID)
+    # flick_photos = photos.count
     flick_photos = 0
 
     all_photos = tum_photos + flick_photos
