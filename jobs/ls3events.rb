@@ -82,9 +82,9 @@ SCHEDULER.every '1h', first_in: 0 do
 
  
   ls3_information = [
-    { label: 'Today', items: ls3s_today.sort_by { |e| e[:startdate] }.uniq { |e| e[:startdate] } },
-    { label: 'This Week', items: ls3s_this_week.sort_by { |e| e[:startdate] }.uniq { |e| e[:startdate] } },
-    { label: 'Next Week', items: ls3s_next_week.sort_by { |e| e[:startdate] }.uniq { |e| e[:startdate] } }
+    { label: 'Today', items: ls3s_today.sort_by { |e| e[:startdate] }.uniq { |e| e[:label] } },
+    { label: 'This Week', items: ls3s_this_week.sort_by { |e| e[:startdate] }.uniq { |e| e[:label] } },
+    { label: 'Next Week', items: ls3s_next_week.sort_by { |e| e[:startdate] }.uniq { |e| e[:label] } }
   ]
 
   send_event 'ls3_events', data: ls3_information
