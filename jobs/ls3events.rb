@@ -66,12 +66,12 @@ SCHEDULER.every '1h', first_in: 0 do
   ls3s_this_week = []
   ls3s_next_week = []
 
-  ls3s = get_calendar_events(calendar_a205, user, password)
-  ls3s.events.each do |event|
-    ls3s_today << { startdate: event.occurrences_between(today, today+1.day-1.second).first.start_time, label: shrink_label(event), icon: "group", type: event.categories.first, count: event.occurrences_between(today, today+1.day-1.second).first.start_time.in_time_zone('Berlin').strftime("%k:%M") } if ls3_includes_date? event, today
-    ls3s_this_week << { startdate: event.occurrences_between(today+1, next_monday-1.second).first.start_time, label: shrink_label(event), icon: "group", type: event.categories.first, count: event.occurrences_between(today+1, next_monday-1.second).first.start_time.in_time_zone('Berlin').strftime("%a, %k:%M") } if this_week.any? { |date| ls3_includes_date? event, date }
-    ls3s_next_week << { startdate: event.occurrences_between(next_monday, next_sunday+1.day-1.second).first.start_time, label: shrink_label(event), icon: "group", type: event.categories.first, count: event.occurrences_between(next_monday, next_sunday+1.day-1.second).first.start_time.in_time_zone('Berlin').strftime("%a, %-d.%-m. %H:%M")} if next_week.any? { |date| ls3_includes_date? event, date }
-  end
+#  ls3s = get_calendar_events(calendar_a205, user, password)
+#  ls3s.events.each do |event|
+#    ls3s_today << { startdate: event.occurrences_between(today, today+1.day-1.second).first.start_time, label: shrink_label(event), icon: "group", type: event.categories.first, count: event.occurrences_between(today, today+1.day-1.second).first.start_time.in_time_zone('Berlin').strftime("%k:%M") } if ls3_includes_date? event, today
+#    ls3s_this_week << { startdate: event.occurrences_between(today+1, next_monday-1.second).first.start_time, label: shrink_label(event), icon: "group", type: event.categories.first, count: event.occurrences_between(today+1, next_monday-1.second).first.start_time.in_time_zone('Berlin').strftime("%a, %k:%M") } if this_week.any? { |date| ls3_includes_date? event, date }
+#    ls3s_next_week << { startdate: event.occurrences_between(next_monday, next_sunday+1.day-1.second).first.start_time, label: shrink_label(event), icon: "group", type: event.categories.first, count: event.occurrences_between(next_monday, next_sunday+1.day-1.second).first.start_time.in_time_zone('Berlin').strftime("%a, %-d.%-m. %H:%M")} if next_week.any? { |date| ls3_includes_date? event, date }
+#  end
 
   ls3s = get_calendar_events(calendar_events, user, password)
   ls3s.events.each do |event|
