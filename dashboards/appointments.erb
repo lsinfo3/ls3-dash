@@ -1,0 +1,33 @@
+<% content_for :title do %>LS3 Main Dashboard<% end %>
+<script type='text/javascript'>
+    $(function() {
+        // These settings override the defaults set in application.coffee. You can do this on a per dashboard basis.
+        Dashing.widget_base_dimensions = [355, 350] // 5 px border, screen 2560x1080
+        Dashing.numColumns = 7
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        setTimeout(function() {
+            $(".icon-background").animate({
+                opacity: 0
+            }, 10000);
+        }, 10000);
+    });
+</script>
+<div class="gridster">
+    <ul>
+
+        <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+            <div data-id="elvis" data-view="Image" data-image="/i3logo.svg" data-width="280" data-height="280"></div>
+        </li>
+
+        <li data-row="1" data-col="3" data-sizex="3" data-sizey="3">
+            <div data-id="ls3_events" data-view="Table" data-title="Upcoming Appointments" style="background-color:#00c13f;"></div>
+            <i class="fa fa-plane icon-background"></i>
+        </li>
+
+
+    </ul>
+</div>
